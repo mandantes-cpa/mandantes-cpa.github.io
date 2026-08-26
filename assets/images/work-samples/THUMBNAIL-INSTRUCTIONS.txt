@@ -1,8 +1,0 @@
-Add these two reviewed, publication-ready JPEG thumbnail files before publishing:
-
-- quickbooks-online-thumbnail.jpg
-- xero-thumbnail.jpg
-
-Recommended thumbnail specification: 1600 x 900 pixels, 16:9 landscape, JPEG in the sRGB color profile, quality 80–85, and ideally under 500 KB per file. Do not include confidential client or financial information. Review the visible image, filename, image metadata, and surrounding image area before publication.
-
-After adding a thumbnail, replace the matching REPLACE_WITH_* placeholder in index.html with the complete public Canva view link for that presentation.
