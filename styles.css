@@ -140,6 +140,7 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .service-accordion details[open] summary i { transform: rotate(45deg); background: var(--aqua); }
 .service-detail { padding: 0 clamp(1rem, 2.2vw, 1.6rem) 1.5rem calc(clamp(1rem, 2.2vw, 1.6rem) + 4rem); max-width: 65rem; }
 .service-detail p { margin: 0; font-size: 1.05rem; }
+.service-empty { margin: 0; padding: 1.25rem; border-left: var(--line); border-right: var(--line); border-bottom: var(--line); background: var(--white); font-family: var(--mono); font-size: 0.78rem; }
 .capability-strip { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 0.6rem; margin: var(--space-5) 0; }
 .capability-strip span { padding: 0.5rem 0.65rem; border: var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.67rem; font-weight: 700; }
 .inline-cta { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem; border: var(--line); background: var(--aqua); box-shadow: var(--shadow); max-width: 62rem; }
