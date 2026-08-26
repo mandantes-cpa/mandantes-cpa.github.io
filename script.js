@@ -128,140 +128,148 @@ document.addEventListener("DOMContentLoaded", () => {
     return values.map((valueRow) => Object.fromEntries(headers.map((header, position) => [header, valueRow[position] || ""])));
   };
 
-  const softwareCarousel = document.querySelector("[data-software-carousel]");
-  if (softwareCarousel) {
-    const viewport = softwareCarousel.querySelector("[data-software-viewport]");
-    const track = softwareCarousel.querySelector("[data-software-track]");
-    const empty = softwareCarousel.querySelector("[data-software-empty]");
-    const status = softwareCarousel.querySelector("[data-software-status]");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let autoFrame = null;
-    let singleSetWidth = 0;
-    let isPaused = false;
-    let isDragging = false;
-    let pointerStartX = 0;
-    let scrollStart = 0;
-    let autoScrollCarry = 0;
+const softwareCarousel = document.querySelector("[data-software-carousel]");
+if (softwareCarousel) {
+  const viewport = softwareCarousel.querySelector("[data-software-viewport]");
+  const track = softwareCarousel.querySelector("[data-software-track]");
+  const empty = softwareCarousel.querySelector("[data-software-empty]");
+  const status = softwareCarousel.querySelector("[data-software-status]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let autoFrame = null;
+  let singleSetWidth = 0;
+  let isPaused = false;
+  let isDragging = false;
+  let pointerStartX = 0;
+  let scrollStart = 0;
+  let autoScrollCarry = 0;
 
-    const stopAutoScroll = () => {
-      if (autoFrame) cancelAnimationFrame(autoFrame);
-      autoFrame = null;
-    };
+  const stopAutoScroll = () => {
+    if (autoFrame) cancelAnimationFrame(autoFrame);
+    autoFrame = null;
+  };
 
-    const keepLoopPosition = () => {
-      if (!viewport || !singleSetWidth) return;
-      if (viewport.scrollLeft <= 0) viewport.scrollLeft += singleSetWidth;
-      if (viewport.scrollLeft >= singleSetWidth * 2) viewport.scrollLeft -= singleSetWidth;
-    };
+  const keepLoopPosition = () => {
+    if (!viewport || !singleSetWidth) return;
+    while (viewport.scrollLeft < singleSetWidth) viewport.scrollLeft += singleSetWidth;
+    while (viewport.scrollLeft > singleSetWidth * 3) viewport.scrollLeft -= singleSetWidth;
+  };
 
-    const startAutoScroll = () => {
-      if (!viewport || reduceMotion || isPaused || singleSetWidth <= 0 || autoFrame) return;
-      const step = () => {
-        if (!isPaused && !isDragging) {
-          autoScrollCarry -= 0.35;
-          const wholePixelMove = Math.trunc(autoScrollCarry);
-          if (wholePixelMove) {
-            viewport.scrollLeft += wholePixelMove;
-            autoScrollCarry -= wholePixelMove;
-            keepLoopPosition();
-          }
+  const startAutoScroll = () => {
+    if (!viewport || reduceMotion || isPaused || singleSetWidth <= 0 || autoFrame) return;
+    const step = () => {
+      if (!isPaused && !isDragging) {
+        autoScrollCarry -= 0.35;
+        const wholePixelMove = Math.trunc(autoScrollCarry);
+        if (wholePixelMove) {
+          viewport.scrollLeft += wholePixelMove;
+          autoScrollCarry -= wholePixelMove;
+          keepLoopPosition();
         }
-        autoFrame = requestAnimationFrame(step);
-      };
+      }
       autoFrame = requestAnimationFrame(step);
     };
+    autoFrame = requestAnimationFrame(step);
+  };
 
-    const makeSoftwareCard = (software) => {
-      const card = document.createElement("article");
-      card.className = "software-logo-card";
-      const image = document.createElement("img");
-      image.src = `assets/images/software/${software.logo_filename}`;
-      image.alt = `${software.name} logo`;
-      const fallback = document.createElement("span");
-      fallback.className = "software-logo-card__fallback";
-      fallback.textContent = software.name.split(/\s+/).map((word) => word[0]).join("").slice(0, 3);
-      fallback.hidden = true;
-      image.addEventListener("error", () => {
-        image.hidden = true;
-        fallback.hidden = false;
-      }, { once: true });
-      const label = document.createElement("span");
-      label.textContent = software.name;
-      card.append(image, fallback, label);
-      return card;
-    };
+  const makeSoftwareCard = (software) => {
+    const card = document.createElement("article");
+    card.className = "software-logo-card";
+    const image = document.createElement("img");
+    image.src = `assets/images/software/${software.logo_filename}`;
+    image.alt = `${software.name} logo`;
+    const fallback = document.createElement("span");
+    fallback.className = "software-logo-card__fallback";
+    fallback.textContent = software.name.split(/\s+/).map((word) => word[0]).join("").slice(0, 3);
+    fallback.hidden = true;
+    image.addEventListener("error", () => {
+      image.hidden = true;
+      fallback.hidden = false;
+    }, { once: true });
+    const label = document.createElement("span");
+    label.textContent = software.name;
+    card.append(image, fallback, label);
+    return card;
+  };
 
-    const renderSoftware = (softwareList) => {
-      if (!track || !viewport || !status) return;
-      stopAutoScroll();
-      track.replaceChildren();
-      if (!softwareList.length) {
-        if (empty) track.append(empty);
-        status.textContent = "No published software logos are available yet.";
-        return;
+  const makeSoftwareSet = (softwareList, hiddenFromAssistiveTechnology) => {
+    const set = document.createElement("div");
+    set.className = "software-strip__set";
+    if (hiddenFromAssistiveTechnology) set.setAttribute("aria-hidden", "true");
+    softwareList.forEach((software) => set.append(makeSoftwareCard(software)));
+    return set;
+  };
+
+  const renderSoftware = (softwareList) => {
+    if (!track || !viewport || !status) return;
+    stopAutoScroll();
+    track.replaceChildren();
+    if (!softwareList.length) {
+      if (empty) track.append(empty);
+      status.textContent = "No published software logos are available yet.";
+      return;
+    }
+    const primarySet = makeSoftwareSet(softwareList, false);
+    track.append(primarySet);
+    status.textContent = `${softwareList.length} supported software ${softwareList.length === 1 ? "platform is" : "platforms are"} published. Drag sideways to browse.`;
+    requestAnimationFrame(() => {
+      const trackGap = Number.parseFloat(window.getComputedStyle(track).gap) || 0;
+      singleSetWidth = primarySet.getBoundingClientRect().width + trackGap;
+      const requiredSetCount = Math.ceil(viewport.clientWidth / singleSetWidth) + 4;
+      for (let copyIndex = 1; copyIndex < requiredSetCount; copyIndex += 1) {
+        track.append(makeSoftwareSet(softwareList, true));
       }
-      const primarySet = document.createDocumentFragment();
-      const duplicateSet = document.createDocumentFragment();
-      const trailingSet = document.createDocumentFragment();
-      softwareList.forEach((software) => primarySet.append(makeSoftwareCard(software)));
-      softwareList.forEach((software) => duplicateSet.append(makeSoftwareCard(software)));
-      softwareList.forEach((software) => trailingSet.append(makeSoftwareCard(software)));
-      track.append(primarySet, duplicateSet, trailingSet);
-      status.textContent = `${softwareList.length} supported software ${softwareList.length === 1 ? "platform is" : "platforms are"} published. Drag sideways to browse.`;
-      requestAnimationFrame(() => {
-        singleSetWidth = track.scrollWidth / 3;
-        viewport.scrollLeft = singleSetWidth;
-        if (softwareList.length > 1) startAutoScroll();
-      });
-    };
-
-    viewport?.addEventListener("pointerdown", (event) => {
-      if (!singleSetWidth || event.pointerType === "keyboard") return;
-      isDragging = true;
-      isPaused = true;
-      pointerStartX = event.clientX;
-      scrollStart = viewport.scrollLeft;
-      viewport.classList.add("is-dragging");
-      viewport.setPointerCapture(event.pointerId);
-      stopAutoScroll();
+      viewport.scrollLeft = singleSetWidth * 2;
+      if (softwareList.length > 1) startAutoScroll();
     });
-    viewport?.addEventListener("pointermove", (event) => {
-      if (!isDragging) return;
-      viewport.scrollLeft = scrollStart - (event.clientX - pointerStartX);
+  };
+
+  viewport?.addEventListener("pointerdown", (event) => {
+    if (!singleSetWidth || event.pointerType === "keyboard") return;
+    isDragging = true;
+    isPaused = true;
+    pointerStartX = event.clientX;
+    scrollStart = viewport.scrollLeft;
+    viewport.classList.add("is-dragging");
+    viewport.setPointerCapture(event.pointerId);
+    stopAutoScroll();
+  });
+  viewport?.addEventListener("pointermove", (event) => {
+    if (!isDragging) return;
+    viewport.scrollLeft = scrollStart - (event.clientX - pointerStartX);
+    keepLoopPosition();
+  });
+  const endDrag = (event) => {
+    if (!isDragging || !viewport) return;
+    isDragging = false;
+    isPaused = false;
+    viewport.classList.remove("is-dragging");
+    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+    startAutoScroll();
+  };
+  viewport?.addEventListener("pointerup", endDrag);
+  viewport?.addEventListener("pointercancel", endDrag);
+  viewport?.addEventListener("focusin", () => { isPaused = true; stopAutoScroll(); });
+  viewport?.addEventListener("focusout", () => { isPaused = false; startAutoScroll(); });
+  viewport?.addEventListener("keydown", (event) => {
+    if (!viewport || !singleSetWidth) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      viewport.scrollLeft += event.key === "ArrowLeft" ? -140 : 140;
       keepLoopPosition();
-    });
-    const endDrag = (event) => {
-      if (!isDragging || !viewport) return;
-      isDragging = false;
-      isPaused = false;
-      viewport.classList.remove("is-dragging");
-      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-      startAutoScroll();
-    };
-    viewport?.addEventListener("pointerup", endDrag);
-    viewport?.addEventListener("pointercancel", endDrag);
-    viewport?.addEventListener("focusin", () => { isPaused = true; stopAutoScroll(); });
-    viewport?.addEventListener("focusout", () => { isPaused = false; startAutoScroll(); });
-    viewport?.addEventListener("keydown", (event) => {
-      if (!viewport || !singleSetWidth) return;
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        event.preventDefault();
-        viewport.scrollLeft += event.key === "ArrowLeft" ? -140 : 140;
-        keepLoopPosition();
-      }
-    });
+    }
+  });
 
-    fetch("assets/data/supported-software.csv", { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) throw new Error("Supported-software CSV was unavailable.");
-        return response.text();
-      })
-      .then((csvText) => {
-        const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.name && /^[A-Za-z0-9][A-Za-z0-9._-]*\.png$/i.test(item.logo_filename));
-        renderSoftware(published);
-      })
-      .catch(() => renderSoftware([]));
-  }
+  fetch("assets/data/supported-software.csv", { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Supported-software CSV was unavailable.");
+      return response.text();
+    })
+    .then((csvText) => {
+      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.name && /^[A-Za-z0-9][A-Za-z0-9._-]*\.png$/i.test(item.logo_filename));
+      renderSoftware(published);
+    })
+    .catch(() => renderSoftware([]));
+}
 
   const carousel = document.querySelector("[data-testimonial-carousel]");
   const carouselStatus = document.querySelector("#carousel-status");
