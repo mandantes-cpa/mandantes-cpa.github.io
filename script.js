@@ -128,6 +128,51 @@ document.addEventListener("DOMContentLoaded", () => {
     return values.map((valueRow) => Object.fromEntries(headers.map((header, position) => [header, valueRow[position] || ""])));
   };
 
+  const serviceAccordion = document.querySelector("[data-service-accordion]");
+if (serviceAccordion) {
+  const makeServiceItem = (service, index) => {
+    const details = document.createElement("details");
+    details.open = index === 0;
+    const summary = document.createElement("summary");
+    const number = document.createElement("span");
+    number.className = "service-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+    const title = document.createElement("span");
+    title.textContent = service.title;
+    const icon = document.createElement("i");
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = "+";
+    summary.append(number, title, icon);
+    const detail = document.createElement("div");
+    detail.className = "service-detail";
+    const description = document.createElement("p");
+    description.textContent = service.description;
+    detail.append(description);
+    details.append(summary, detail);
+    return details;
+  };
+
+  fetch("assets/data/services.csv", { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Services CSV was unavailable.");
+      return response.text();
+    })
+    .then((csvText) => {
+      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.title && item.description);
+      if (!published.length) {
+        const empty = document.createElement("p");
+        empty.className = "service-empty";
+        empty.textContent = "No published services are available yet.";
+        serviceAccordion.replaceChildren(empty);
+        return;
+      }
+      serviceAccordion.replaceChildren(...published.map(makeServiceItem));
+    })
+    .catch(() => {
+      // The static HTML entries remain available as the deliberately useful fallback.
+    });
+}
+
 const softwareCarousel = document.querySelector("[data-software-carousel]");
 if (softwareCarousel) {
   const viewport = softwareCarousel.querySelector("[data-software-viewport]");
