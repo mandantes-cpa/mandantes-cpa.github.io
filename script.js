@@ -222,17 +222,13 @@ if (softwareCarousel) {
     const image = document.createElement("img");
     image.src = `assets/images/software/${software.logo_filename}`;
     image.alt = `${software.name} logo`;
-    const fallback = document.createElement("span");
-    fallback.className = "software-logo-card__fallback";
-    fallback.textContent = software.name.split(/\s+/).map((word) => word[0]).join("").slice(0, 3);
-    fallback.hidden = true;
     image.addEventListener("error", () => {
-      image.hidden = true;
-      fallback.hidden = false;
+      image.remove();
+      card.classList.add("is-missing-logo");
     }, { once: true });
     const label = document.createElement("span");
     label.textContent = software.name;
-    card.append(image, fallback, label);
+    card.append(image, label);
     return card;
   };
 
@@ -257,9 +253,8 @@ if (softwareCarousel) {
     track.append(primarySet);
     status.textContent = `${softwareList.length} supported software ${softwareList.length === 1 ? "platform is" : "platforms are"} published. Drag sideways to browse.`;
     requestAnimationFrame(() => {
-      const trackGap = Number.parseFloat(window.getComputedStyle(track).gap) || 0;
-      singleSetWidth = primarySet.getBoundingClientRect().width + trackGap;
-      const requiredSetCount = Math.ceil(viewport.clientWidth / singleSetWidth) + 4;
+      singleSetWidth = primarySet.getBoundingClientRect().width;
+      const requiredSetCount = Math.ceil(viewport.clientWidth / singleSetWidth) + 5;
       for (let copyIndex = 1; copyIndex < requiredSetCount; copyIndex += 1) {
         track.append(makeSoftwareSet(softwareList, true));
       }
