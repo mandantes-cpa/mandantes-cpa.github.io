@@ -255,7 +255,7 @@ if (softwareCarousel) {
       status.textContent = "No published software logos are available yet.";
       return;
     }
-    status.textContent = `${softwareList.length} supported software ${softwareList.length === 1 ? "platform is" : "platforms are"} published. Drag sideways to browse.`;
+    status.textContent = "Don't see your software? We quickly adapt to custom tech stacks.";
     const measuringSet = makeSoftwareSet(softwareList, true);
     track.append(measuringSet);
     requestAnimationFrame(() => {
