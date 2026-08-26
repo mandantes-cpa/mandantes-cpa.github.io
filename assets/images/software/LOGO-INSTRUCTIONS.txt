@@ -1,0 +1,5 @@
+Add owner-supplied supported-software PNG logos to this folder.
+
+For each published row in assets/data/supported-software.csv, place a matching PNG here using the exact filename in the logo_filename column. Recommended format: transparent PNG, square 512 x 512 pixels, sRGB color profile, and under 150 KB where possible. The carousel will preserve the logo proportion inside a consistent card.
+
+Use only authorized logo artwork and do not include client or confidential information.
