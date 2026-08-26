@@ -116,6 +116,7 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .software-strip__track { display: flex; align-items: stretch; gap: 0; width: max-content; min-width: 100%; padding: 0.85rem 0 0.85rem 0.85rem; }
 .software-strip__set { display: flex; flex: 0 0 auto; align-items: stretch; gap: 0.75rem; padding-right: 0.75rem; }
 .software-logo-card { flex: 0 0 9.5rem; min-height: 8.75rem; display: grid; grid-template-rows: 1fr auto; gap: 0.55rem; place-items: center; padding: 0.75rem; border: var(--line); background: var(--paper); }
+.software-logo-card { box-sizing: border-box; width: 9.5rem; }
 .software-logo-card img { width: 4.5rem; height: 4.5rem; object-fit: contain; pointer-events: none; }
 .software-logo-card span { width: 100%; font-family: var(--mono); font-size: 0.66rem; font-weight: 700; line-height: 1.15; text-align: center; text-transform: uppercase; overflow-wrap: anywhere; }
 .software-logo-card.is-missing-logo { grid-template-rows: 1fr; }
