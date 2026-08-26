@@ -182,11 +182,14 @@ if (softwareCarousel) {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let autoFrame = null;
   let singleSetWidth = 0;
+  let loopAnchor = 0;
   let isPaused = false;
   let isDragging = false;
   let pointerStartX = 0;
   let scrollStart = 0;
   let autoScrollCarry = 0;
+  let activeSoftware = [];
+  let resizeTimer = null;
 
   const stopAutoScroll = () => {
     if (autoFrame) cancelAnimationFrame(autoFrame);
@@ -195,8 +198,10 @@ if (softwareCarousel) {
 
   const keepLoopPosition = () => {
     if (!viewport || !singleSetWidth) return;
-    while (viewport.scrollLeft < singleSetWidth) viewport.scrollLeft += singleSetWidth;
-    while (viewport.scrollLeft > singleSetWidth * 3) viewport.scrollLeft -= singleSetWidth;
+    const lowerLoopBoundary = loopAnchor - singleSetWidth / 2;
+    const upperLoopBoundary = loopAnchor + singleSetWidth / 2;
+    while (viewport.scrollLeft < lowerLoopBoundary) viewport.scrollLeft += singleSetWidth;
+    while (viewport.scrollLeft > upperLoopBoundary) viewport.scrollLeft -= singleSetWidth;
   };
 
   const startAutoScroll = () => {
@@ -243,22 +248,29 @@ if (softwareCarousel) {
   const renderSoftware = (softwareList) => {
     if (!track || !viewport || !status) return;
     stopAutoScroll();
+    activeSoftware = softwareList;
     track.replaceChildren();
     if (!softwareList.length) {
       if (empty) track.append(empty);
       status.textContent = "No published software logos are available yet.";
       return;
     }
-    const primarySet = makeSoftwareSet(softwareList, false);
-    track.append(primarySet);
     status.textContent = `${softwareList.length} supported software ${softwareList.length === 1 ? "platform is" : "platforms are"} published. Drag sideways to browse.`;
+    const measuringSet = makeSoftwareSet(softwareList, true);
+    track.append(measuringSet);
     requestAnimationFrame(() => {
-      singleSetWidth = primarySet.getBoundingClientRect().width;
-      const requiredSetCount = Math.ceil(viewport.clientWidth / singleSetWidth) + 5;
-      for (let copyIndex = 1; copyIndex < requiredSetCount; copyIndex += 1) {
-        track.append(makeSoftwareSet(softwareList, true));
+      singleSetWidth = measuringSet.offsetWidth;
+      const requiredSetCount = Math.max(3, Math.ceil(viewport.clientWidth / singleSetWidth) + 3);
+      const accessibleSetIndex = Math.floor(requiredSetCount / 2);
+      const sets = document.createDocumentFragment();
+      for (let copyIndex = 0; copyIndex < requiredSetCount; copyIndex += 1) {
+        sets.append(makeSoftwareSet(softwareList, copyIndex !== accessibleSetIndex));
       }
-      viewport.scrollLeft = singleSetWidth * 2;
+      track.replaceChildren(sets);
+      const accessibleSet = track.children[accessibleSetIndex];
+      singleSetWidth = accessibleSet.offsetWidth;
+      loopAnchor = accessibleSet.offsetLeft;
+      viewport.scrollLeft = loopAnchor;
       if (softwareList.length > 1) startAutoScroll();
     });
   };
@@ -297,6 +309,11 @@ if (softwareCarousel) {
       viewport.scrollLeft += event.key === "ArrowLeft" ? -140 : 140;
       keepLoopPosition();
     }
+  });
+  window.addEventListener("resize", () => {
+    if (!activeSoftware.length) return;
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => renderSoftware(activeSoftware), 100);
   });
 
   fetch("assets/data/supported-software.csv", { cache: "no-store" })
