@@ -1,0 +1,29 @@
+# GitHub Pages Readiness and Interaction Test Report
+
+## Scope
+
+The standalone `github-pages` folder was served over a local HTTP server and opened in a browser on August 26, 2026. The intent was to validate the same relative-path static package that will be placed at a GitHub repository root.
+
+| Check | Result | Notes |
+| --- | --- | --- |
+| `index.html` loads | Pass | The page title was shown as “Mandantes Bookkeeping \| Let’s organize your books.” |
+| Local CSS and JavaScript paths | Pass | The one-page layout and browser enhancement controls were available from the root preview. |
+| Local image paths | Pass | The local logo, hero illustration, work-sample illustration, and contact illustration loaded from `assets/images/`. |
+| Required section order | Pass | Home, About, Services, Work Samples, Testimonials, Work With Us, and Footer were present in a single scrollable document. |
+| Services anchor navigation | Pass | Selecting Services changed the URL fragment to `#services` and positioned the Services heading beneath the sticky header. |
+| Service disclosure | Pass | Cleanup Bookkeeping was visible on page load and the native disclosure controls were present for all three published services. |
+| Missing-PDF state | Pass | Both local sample slots showed a nonblank “PDF preview awaiting file” fallback and retained their Open and Download controls. |
+| Claims boundary | Pass | The delivered content did not add pricing, telephone number, service area, invented results, or a fake form. |
+| Work Samples anchor navigation | Pass | Selecting Work Samples changed the URL fragment to `#work-samples` and showed both visible fallback cards. |
+| Testimonials anchor navigation | Pass | Selecting Testimonials changed the URL fragment to `#testimonials` and positioned the authorized testimonial in its labeled panel. |
+| Testimonial controls | Pass | The published source provides one testimonial, so previous/next buttons are truthfully disabled and labeled as unavailable. No fabricated slides or reviews were added. |
+| Browser console | Pass | No console output or JavaScript errors were reported after anchor navigation and PDF fallback handling. |
+| Mobile menu behavior | Pass | The menu button changed `aria-expanded` from `false` to `true` when opened, added the open state, updated its accessible label, and returned to the closed state after Escape. |
+| Copy-email feedback | Pass | Activating Copy email displayed the live-status message “Email address copied to your clipboard.” |
+| JavaScript syntax | Pass | `node --check script.js` completed without a syntax error. |
+| Relative paths | Pass | Required site files and local images were present, and no root-relative `src` or `href` values were found in the HTML. |
+| Static-hosting boundary | Pass | The package contains no Canva runtime reference, pricing copy, telephone link, client form, or external runtime dependency. |
+
+## Remaining package inputs
+
+The source PDFs are intentionally not included. Before publication, add reviewed and redacted `assets/work-samples/quickbooks-online.pdf` and `assets/work-samples/xero.pdf`. The README contains the exact process and static-hosting limitations.

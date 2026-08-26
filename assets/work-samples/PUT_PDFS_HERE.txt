@@ -1,0 +1,6 @@
+Place only these reviewed, publication-ready files in this folder before publishing:
+
+- quickbooks-online.pdf
+- xero.pdf
+
+Do not publish confidential client or financial information. Review and redact each PDF, including its visible pages, title, filename, document properties, and metadata, before adding it here.
