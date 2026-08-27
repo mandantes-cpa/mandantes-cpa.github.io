@@ -95,38 +95,61 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-revealed"));
   }
 
-  const parseCsv = (csvText) => {
-    const rows = [];
-    let cell = "";
-    let row = [];
-    let insideQuotes = false;
-    for (let index = 0; index < csvText.length; index += 1) {
-      const character = csvText[index];
-      const nextCharacter = csvText[index + 1];
-      if (character === '"' && insideQuotes && nextCharacter === '"') {
-        cell += '"';
-        index += 1;
-      } else if (character === '"') {
-        insideQuotes = !insideQuotes;
-      } else if (character === "," && !insideQuotes) {
-        row.push(cell.trim());
-        cell = "";
-      } else if ((character === "\n" || character === "\r") && !insideQuotes) {
-        if (character === "\r" && nextCharacter === "\n") index += 1;
-        row.push(cell.trim());
-        if (row.some((value) => value)) rows.push(row);
-        row = [];
-        cell = "";
-      } else {
-        cell += character;
-      }
+const credentialsList = document.querySelector("[data-credentials-list]");
+if (credentialsList) {
+  const validExternalUrl = (value) => {
+    try {
+      const url = new URL(value);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    } catch {
+      return "";
     }
-    row.push(cell.trim());
-    if (row.some((value) => value)) rows.push(row);
-    const [headers, ...values] = rows;
-    if (!headers) return [];
-    return values.map((valueRow) => Object.fromEntries(headers.map((header, position) => [header, valueRow[position] || ""])));
   };
+  const makeCredential = (credential, index) => {
+    const item = document.createElement("li");
+    const number = document.createElement("span");
+    number.className = "credential-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+    const copy = document.createElement("span");
+    copy.className = "credential-copy";
+    const title = document.createElement("strong");
+    title.textContent = credential.title;
+    const detail = document.createElement("small");
+    detail.textContent = credential.detail;
+    copy.append(title, detail);
+    const verificationUrl = validExternalUrl(credential.verification_url);
+    if (verificationUrl) {
+      const verify = document.createElement("a");
+      verify.className = "credential-verify";
+      verify.href = verificationUrl;
+      verify.target = "_blank";
+      verify.rel = "noopener noreferrer";
+      verify.textContent = `${credential.verification_label || "Verify credential"} ↗`;
+      copy.append(verify);
+    }
+    item.append(number, copy);
+    return item;
+  };
+  fetch("assets/data/credentials.csv", { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Credentials CSV was unavailable.");
+      return response.text();
+    })
+    .then((csvText) => {
+      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.title && item.detail);
+      if (!published.length) {
+        const empty = document.createElement("li");
+        empty.className = "credential-empty";
+        empty.textContent = "No published credentials are available yet.";
+        credentialsList.replaceChildren(empty);
+        return;
+      }
+      credentialsList.replaceChildren(...published.map(makeCredential));
+    })
+    .catch(() => {
+      // The static credentials remain visible as the deliberately useful fallback.
+    });
+}
 
   const serviceAccordion = document.querySelector("[data-service-accordion]");
 if (serviceAccordion) {
