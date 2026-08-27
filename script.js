@@ -95,6 +95,39 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-revealed"));
   }
 
+  const parseCsv = (csvText) => {
+  const rows = [];
+  let cell = "";
+  let row = [];
+  let insideQuotes = false;
+  for (let index = 0; index < csvText.length; index += 1) {
+    const character = csvText[index];
+    const nextCharacter = csvText[index + 1];
+    if (character === '"' && insideQuotes && nextCharacter === '"') {
+      cell += '"';
+      index += 1;
+    } else if (character === '"') {
+      insideQuotes = !insideQuotes;
+    } else if (character === "," && !insideQuotes) {
+      row.push(cell.trim());
+      cell = "";
+    } else if ((character === "\n" || character === "\r") && !insideQuotes) {
+      if (character === "\r" && nextCharacter === "\n") index += 1;
+      row.push(cell.trim());
+      if (row.some((value) => value)) rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += character;
+    }
+  }
+  row.push(cell.trim());
+  if (row.some((value) => value)) rows.push(row);
+  const [headers, ...values] = rows;
+  if (!headers) return [];
+  return values.map((valueRow) => Object.fromEntries(headers.map((header, position) => [header, valueRow[position] || ""])));
+};
+
 const credentialsList = document.querySelector("[data-credentials-list]");
 if (credentialsList) {
   const validExternalUrl = (value) => {
