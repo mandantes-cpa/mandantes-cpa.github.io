@@ -128,61 +128,100 @@ document.addEventListener("DOMContentLoaded", () => {
   return values.map((valueRow) => Object.fromEntries(headers.map((header, position) => [header, valueRow[position] || ""])));
 };
 
-const credentialsList = document.querySelector("[data-credentials-list]");
-if (credentialsList) {
-  const validExternalUrl = (value) => {
-    try {
-      const url = new URL(value);
-      return ["http:", "https:"].includes(url.protocol) ? url.href : "";
-    } catch {
-      return "";
-    }
-  };
-  const makeCredential = (credential, index) => {
-    const item = document.createElement("li");
-    const number = document.createElement("span");
-    number.className = "credential-number";
-    number.textContent = String(index + 1).padStart(2, "0");
-    const copy = document.createElement("span");
-    copy.className = "credential-copy";
-    const title = document.createElement("strong");
-    title.textContent = credential.title;
-    const detail = document.createElement("small");
-    detail.textContent = credential.detail;
-    copy.append(title, detail);
-    const verificationUrl = validExternalUrl(credential.verification_url);
-    if (verificationUrl) {
-      const verify = document.createElement("a");
-      verify.className = "credential-verify";
-      verify.href = verificationUrl;
-      verify.target = "_blank";
-      verify.rel = "noopener noreferrer";
-      verify.textContent = `${credential.verification_label || "Verify credential"} ↗`;
-      copy.append(verify);
-    }
-    item.append(number, copy);
-    return item;
-  };
-  fetch("assets/data/credentials.csv", { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error("Credentials CSV was unavailable.");
-      return response.text();
-    })
-    .then((csvText) => {
-      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.title && item.detail);
-      if (!published.length) {
-        const empty = document.createElement("li");
-        empty.className = "credential-empty";
-        empty.textContent = "No published credentials are available yet.";
-        credentialsList.replaceChildren(empty);
-        return;
+  const credentialsList = document.querySelector("[data-credentials-list]");
+  if (credentialsList) {
+    const validExternalUrl = (value) => {
+      try {
+        const url = new URL(value);
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+      } catch {
+        return "";
       }
-      credentialsList.replaceChildren(...published.map(makeCredential));
-    })
-    .catch(() => {
-      // The static credentials remain visible as the deliberately useful fallback.
-    });
-}
+    };
+    const safeCredentialLogo = (value) => /^[A-Za-z0-9][A-Za-z0-9._-]*\.png$/i.test(value || "") ? value : "";
+    const makeCredential = (credential, index) => {
+      const item = document.createElement("li");
+      item.className = "credential-item";
+      item.tabIndex = 0;
+      const number = document.createElement("span");
+      number.className = "credential-number";
+      number.textContent = String(index + 1).padStart(2, "0");
+      const copy = document.createElement("span");
+      copy.className = "credential-copy";
+      const main = document.createElement("span");
+      main.className = "credential-main";
+      const logoFilename = safeCredentialLogo(credential.logo_filename);
+      if (logoFilename) {
+        const logo = document.createElement("img");
+        logo.className = "credential-logo";
+        logo.src = `assets/images/credentials/${logoFilename}`;
+        logo.alt = "";
+        logo.setAttribute("aria-hidden", "true");
+        logo.addEventListener("error", () => logo.remove(), { once: true });
+        main.append(logo);
+      }
+      const text = document.createElement("span");
+      text.className = "credential-text";
+      const title = document.createElement("strong");
+      title.textContent = credential.title;
+      const detail = document.createElement("small");
+      detail.textContent = credential.detail;
+      text.append(title, detail);
+      main.append(text);
+      copy.append(main);
+      const moreDetails = credential.more_details?.trim();
+      if (moreDetails) {
+        const detailPanel = document.createElement("span");
+        detailPanel.className = "credential-more";
+        detailPanel.textContent = moreDetails;
+        copy.append(detailPanel);
+        item.setAttribute("aria-expanded", "false");
+        const toggleDetails = () => item.classList.toggle("is-details-open");
+        item.addEventListener("click", (event) => {
+          if (event.target.closest("a")) return;
+          toggleDetails();
+          item.setAttribute("aria-expanded", String(item.classList.contains("is-details-open")));
+        });
+        item.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          toggleDetails();
+          item.setAttribute("aria-expanded", String(item.classList.contains("is-details-open")));
+        });
+      }
+      const verificationUrl = validExternalUrl(credential.verification_url);
+      if (verificationUrl) {
+        const verify = document.createElement("a");
+        verify.className = "credential-verify";
+        verify.href = verificationUrl;
+        verify.target = "_blank";
+        verify.rel = "noopener noreferrer";
+        verify.textContent = `${credential.verification_label || "Verify credential"} ↗`;
+        copy.append(verify);
+      }
+      item.append(number, copy);
+      return item;
+    };
+    fetch("assets/data/credentials.csv", { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error("Credentials CSV was unavailable.");
+        return response.text();
+      })
+      .then((csvText) => {
+        const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.title && item.detail);
+        if (!published.length) {
+          const empty = document.createElement("li");
+          empty.className = "credential-empty";
+          empty.textContent = "No published credentials are available yet.";
+          credentialsList.replaceChildren(empty);
+          return;
+        }
+        credentialsList.replaceChildren(...published.map(makeCredential));
+      })
+      .catch(() => {
+        // The static credentials remain visible as the deliberately useful fallback.
+      });
+  }
 
   const serviceAccordion = document.querySelector("[data-service-accordion]");
 if (serviceAccordion) {
