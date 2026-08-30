@@ -28,6 +28,63 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-800.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-900.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Body";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("assets/fonts/source-sans-3-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-700.woff2") format("woff2");
+}
+
+/* Replace only these three variables in :root. */
+:root {
+  --display: "Mandantes Display", sans-serif;
+  --body: "Mandantes Body", sans-serif;
+  --mono: "Mandantes Mono", monospace;
+}
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 6.5rem; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
