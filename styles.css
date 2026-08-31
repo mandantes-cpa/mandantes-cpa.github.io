@@ -360,3 +360,31 @@ blockquote footer strong { font-size: 0.85rem; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .js-enabled .reveal { opacity: 1; transform: none; }
 }
+
+/* Add these rules near the section layout rules in styles.css. */
+.hero-copy,
+.about-layout > *,
+.software-strip > *,
+.services-title-row > *,
+.samples-intro > *,
+.testimonial-grid > *,
+.work-with-us > * {
+  min-width: 0;
+}
+
+/* Keep large display lines inside their own grid/flex columns. */
+h1,
+h2,
+h3,
+.service-accordion summary,
+.work-sample-slide h3,
+.contact-copy h2,
+.footer-top > p {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* The work-with-us headline is the most likely line to exceed a narrow column. */
+.contact-copy h2 {
+  text-wrap: balance;
+}
