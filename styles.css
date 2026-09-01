@@ -155,7 +155,15 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .credential-list .credential-number { grid-row: 1 / 4; font-family: var(--mono); font-size: 0.65rem; padding-top: 0.2rem; }
 .credential-list .credential-copy { display: grid; gap: 0.25rem; min-width: 0; }
 .credential-main { display: flex; align-items: center; gap: 0.65rem; min-width: 0; }
-.credential-logo { flex: 0 0 2.2rem; width: 2.2rem; height: 2.2rem; object-fit: contain; border: 1.5px solid var(--ink); padding: 0.22rem; background: var(--white); }
+.credential-logo {
+  flex: 0 0 2.2rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  object-fit: contain;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
 .credential-text { display: grid; gap: 0.25rem; min-width: 0; }
 .credential-list strong { font-size: 0.88rem; line-height: 1.3; }
 .credential-list small { font-size: 0.73rem; line-height: 1.35; color: var(--muted); }
