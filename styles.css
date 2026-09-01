@@ -466,3 +466,34 @@ h3 { font-size: clamp(1.9rem, 2.7vw, 3rem); }
   font-weight: 500;
 }
 
+/* Paste this complete block at the END of styles.css. */
+@font-face {
+  font-family: "Mandantes Mono Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/roboto-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/roboto-mono-500.woff2") format("woff2");
+}
+
+:root {
+  --mono: "Mandantes Mono Roboto", monospace;
+}
+
+/* Keep the site’s existing mono weight hierarchy readable. */
+.button,
+.nav-link,
+.eyebrow,
+.section-index,
+.brand-type,
+.skip-link,
+.hero-ribbon,
+.footer-bottom {
+  font-family: var(--mono);
+}
