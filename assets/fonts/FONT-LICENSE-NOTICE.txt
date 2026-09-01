@@ -1,0 +1,9 @@
+The bundled Barlow Condensed, Source Sans 3, and IBM Plex Mono font files are distributed under the SIL Open Font License, Version 1.1.
+
+License text and copyright details:
+https://scripts.sil.org/OFL
+
+Font families:
+- Barlow Condensed — https://fonts.google.com/specimen/Barlow+Condensed
+- Source Sans 3 — https://fonts.google.com/specimen/Source+Sans+3
+- IBM Plex Mono — https://fonts.google.com/specimen/IBM+Plex+Mono
