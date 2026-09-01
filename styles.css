@@ -27,57 +27,6 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
-
-@font-face {
-  font-family: "Mandantes Display";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("assets/fonts/barlow-condensed-700.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Display";
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("assets/fonts/barlow-condensed-800.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Display";
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("assets/fonts/barlow-condensed-900.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Body";
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url("assets/fonts/source-sans-3-latin.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Mono";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("assets/fonts/ibm-plex-mono-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Mono";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Mandantes Mono";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("assets/fonts/ibm-plex-mono-700.woff2") format("woff2");
-}
-
 /* Replace only these three variables in :root. */
 :root {
   --display: "Mandantes Display", sans-serif;
@@ -361,6 +310,56 @@ blockquote footer strong { font-size: 0.85rem; }
   .js-enabled .reveal { opacity: 1; transform: none; }
 }
 
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-800.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-900.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Body";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("assets/fonts/source-sans-3-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-700.woff2") format("woff2");
+}
+
 /* Add these rules near the section layout rules in styles.css. */
 .hero-copy,
 .about-layout > *,
@@ -388,3 +387,74 @@ h3,
 .contact-copy h2 {
   text-wrap: balance;
 }
+
+/* Add this block at the END of styles.css so it overrides the heavier font patch. */
+@font-face {
+  font-family: "Mandantes Display Light";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Display Light";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/barlow-condensed-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Body Light";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("assets/fonts/source-sans-3-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mandantes Mono Light";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500.woff2") format("woff2");
+}
+
+:root {
+  --display: "Mandantes Display Light", sans-serif;
+  --body: "Mandantes Body Light", sans-serif;
+  --mono: "Mandantes Mono Light", monospace;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+h1 { font-size: clamp(3.75rem, 8.5vw, 9rem); }
+h2 { font-size: clamp(3rem, 6.35vw, 6.4rem); }
+h3 { font-size: clamp(1.9rem, 2.7vw, 3rem); }
+
+.brand-name,
+.about-lead {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.button,
+.nav-link,
+.eyebrow,
+.section-index,
+.brand-type {
+  font-family: var(--mono);
+  font-weight: 500;
+}
+
