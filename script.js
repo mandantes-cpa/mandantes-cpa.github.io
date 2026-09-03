@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return "";
       }
     };
-    const safeCredentialLogo = (value) => /^[A-Za-z0-9][A-Za-z0-9._-]*\.png$/i.test(value || "") ? value : "";
+    const safeCredentialLogo = (value) => /^[A-Za-z0-9][A-Za-z0-9._-]*\.(png|svg)$/i.test(value || "") ? value : "";
     const makeCredential = (credential, index) => {
       const item = document.createElement("li");
       item.className = "credential-item";
@@ -417,7 +417,7 @@ if (softwareCarousel) {
       return response.text();
     })
     .then((csvText) => {
-      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.name && /^[A-Za-z0-9][A-Za-z0-9._-]*\.png$/i.test(item.logo_filename));
+      const published = parseCsv(csvText).filter((item) => item.status.trim().toLowerCase() === "published" && item.name && /^[A-Za-z0-9][A-Za-z0-9._-]*\.(png|svg)$/i.test(item.logo_filename));
       renderSoftware(published);
     })
     .catch(() => renderSoftware([]));
