@@ -201,7 +201,7 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .service-accordion { position: relative; z-index: 1; max-width: 75rem; border-top: var(--line); }
 .service-accordion details { background: var(--white); border-left: var(--line); border-right: var(--line); border-bottom: var(--line); transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
 .service-accordion details[open] { box-shadow: var(--shadow); transform: translate(-3px,-3px); }
-.service-accordion summary { list-style: none; display: grid; grid-template-columns: 3rem 1fr 2rem; align-items: center; gap: 1rem; padding: clamp(1rem, 2.2vw, 1.6rem); font-family: var(--display); font-size: clamp(1.7rem, 3vw, 3.2rem); font-weight: 900; letter-spacing: -0.06em; cursor: pointer; }
+.service-accordion summary { list-style: none; display: grid; grid-template-columns: 3rem 1fr 2rem; align-items: center; gap: 1rem; padding: clamp(1rem, 2.2vw, 1.6rem); font-family: var(--display); font-size: clamp(1.7rem, 3vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; cursor: pointer; }
 .service-accordion summary::-webkit-details-marker { display: none; }
 .service-number { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0; }
 .service-accordion summary i { width: 2rem; height: 2rem; display: grid; place-items: center; font-family: var(--body); font-size: 1.6rem; font-style: normal; border: var(--line); background: var(--yellow); transition: transform 180ms var(--ease-out); }
