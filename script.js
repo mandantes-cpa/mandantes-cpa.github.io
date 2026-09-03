@@ -303,7 +303,7 @@ if (softwareCarousel) {
     if (!viewport || reduceMotion || isPaused || singleSetWidth <= 0 || autoFrame) return;
     const step = () => {
       if (!isPaused && !isDragging) {
-        autoScrollCarry -= 0.35;
+        autoScrollCarry += 0.35;
         const wholePixelMove = Math.trunc(autoScrollCarry);
         if (wholePixelMove) {
           viewport.scrollLeft += wholePixelMove;
