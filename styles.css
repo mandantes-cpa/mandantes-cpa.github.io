@@ -206,6 +206,30 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .service-number { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0; }
 .service-accordion summary i { width: 2rem; height: 2rem; display: grid; place-items: center; font-family: var(--body); font-size: 1.6rem; font-style: normal; border: var(--line); background: var(--yellow); transition: transform 180ms var(--ease-out); }
 .service-accordion details[open] summary i { transform: rotate(45deg); background: var(--aqua); }
+.service-accordion summary {
+  grid-template-columns: 3rem minmax(0, 1fr) 2rem;
+}
+.service-summary-copy {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.service-title {
+  display: block;
+}
+.service-question {
+  display: block;
+  color: var(--coral);
+  font-family: var(--body);
+  font-size: clamp(0.82rem, 1.15vw, 1rem);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+.service-question:empty {
+  display: none;
+}
 .service-detail { padding: 0 clamp(1rem, 2.2vw, 1.6rem) 1.5rem calc(clamp(1rem, 2.2vw, 1.6rem) + 4rem); max-width: 65rem; }
 .service-detail p { margin: 0; font-size: 1.05rem; }
 .service-empty { margin: 0; padding: 1.25rem; border-left: var(--line); border-right: var(--line); border-bottom: var(--line); background: var(--white); font-family: var(--mono); font-size: 0.78rem; }
