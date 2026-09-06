@@ -232,12 +232,22 @@ if (serviceAccordion) {
     const number = document.createElement("span");
     number.className = "service-number";
     number.textContent = String(index + 1).padStart(2, "0");
+    const summaryCopy = document.createElement("span");
+    summaryCopy.className = "service-summary-copy";
     const title = document.createElement("span");
+    title.className = "service-title";
     title.textContent = service.title;
+    summaryCopy.append(title);
+    if (service.question?.trim()) {
+      const question = document.createElement("em");
+      question.className = "service-question";
+      question.textContent = service.question.trim();
+      summaryCopy.append(question);
+    }
     const icon = document.createElement("i");
     icon.setAttribute("aria-hidden", "true");
     icon.textContent = "+";
-    summary.append(number, title, icon);
+    summary.append(number, summaryCopy, icon);
     const detail = document.createElement("div");
     detail.className = "service-detail";
     const description = document.createElement("p");
