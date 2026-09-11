@@ -60,6 +60,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+/* Add inside the existing DOMContentLoaded callback in script.js. */
+  const logoTransition = () => {
+    const splash = document.querySelector(".brand-splash");
+    if (!splash) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateLogoState = () => {
+      const threshold = Math.max(120, window.innerHeight * 0.18);
+      document.documentElement.classList.toggle("logo-transition-ready", window.scrollY > threshold);
+    };
+
+    updateLogoState();
+    window.addEventListener("scroll", updateLogoState, { passive: true });
+    window.addEventListener("resize", updateLogoState, { passive: true });
+
+    if (reduceMotion.matches) {
+      document.documentElement.classList.add("logo-transition-ready");
+    }
+  };
+
+  logoTransition();
+  
   const sections = [...document.querySelectorAll("main section[id]")];
   if ("IntersectionObserver" in window) {
     const sectionObserver = new IntersectionObserver(
