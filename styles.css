@@ -54,24 +54,50 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
 .brand-name { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.07em; font-size: 1.35rem; }
 .brand-type { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.13em; text-transform: uppercase; margin-top: 0.35rem; }
 /* Add after the existing .site-header and .brand-mark rules. */
+/* Replace the entire old logo-transition CSS block from the previous kit. */
 .brand-splash {
-  position: fixed;
-  inset: 0;
-  z-index: 18;
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
   display: grid;
   place-items: center;
+  height: clamp(22rem, 70vh, 44rem);
   pointer-events: none;
-  background: var(--paper);
+  background: transparent;
   opacity: 1;
   transform: translateY(0);
   transition: opacity 560ms var(--ease-out), transform 700ms var(--ease-out);
 }
-.brand-splash__mark {
-  width: clamp(9rem, 24vw, 15rem);
-  height: clamp(9rem, 24vw, 15rem);
-  object-fit: contain;
-  transform: scale(1);
+.brand-splash__lockup {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: min(80vw, 22rem);
+  text-align: center;
+  transform: translateY(-4vh);
   transition: transform 700ms var(--ease-out);
+}
+.brand-splash__mark {
+  width: clamp(7rem, 18vw, 12rem);
+  height: clamp(7rem, 18vw, 12rem);
+  object-fit: contain;
+  margin-bottom: 0.7rem;
+}
+.brand-splash__name {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+.brand-splash__type {
+  margin-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: clamp(0.62rem, 1.2vw, 0.82rem);
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 .brand-mark {
   opacity: 0.2;
@@ -80,13 +106,13 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
   transition: opacity 420ms var(--ease-out), transform 560ms var(--ease-out);
 }
 
-/* Applied by script after the visitor scrolls beyond the opening stage. */
+/* Applied after the visitor scrolls beyond the opening logo stage. */
 .logo-transition-ready .brand-splash {
   opacity: 0;
   transform: translateY(-1.25rem);
 }
-.logo-transition-ready .brand-splash__mark {
-  transform: scale(0.82);
+.logo-transition-ready .brand-splash__lockup {
+  transform: translateY(-8vh) scale(0.84);
 }
 .logo-transition-ready .brand-mark {
   opacity: 1;
@@ -94,15 +120,25 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
 }
 
 @media (max-width: 720px) {
+  .brand-splash {
+    height: min(68vh, 34rem);
+  }
+  .brand-splash__lockup {
+    width: min(86vw, 18rem);
+    transform: translateY(-3vh);
+  }
   .brand-splash__mark {
-    width: min(48vw, 12rem);
-    height: min(48vw, 12rem);
+    width: min(34vw, 9rem);
+    height: min(34vw, 9rem);
+  }
+  .brand-splash__name {
+    font-size: clamp(1.65rem, 9vw, 2.8rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .brand-splash,
-  .brand-splash__mark,
+  .brand-splash__lockup,
   .brand-mark {
     transition: none;
   }
