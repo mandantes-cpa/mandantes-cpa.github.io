@@ -53,6 +53,60 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
 .brand-copy { display: grid; line-height: 0.9; }
 .brand-name { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.07em; font-size: 1.35rem; }
 .brand-type { font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.13em; text-transform: uppercase; margin-top: 0.35rem; }
+/* Add after the existing .site-header and .brand-mark rules. */
+.brand-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 18;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: var(--paper);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 560ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.brand-splash__mark {
+  width: clamp(9rem, 24vw, 15rem);
+  height: clamp(9rem, 24vw, 15rem);
+  object-fit: contain;
+  transform: scale(1);
+  transition: transform 700ms var(--ease-out);
+}
+.brand-mark {
+  opacity: 0.2;
+  transform: scale(0.72);
+  transform-origin: center;
+  transition: opacity 420ms var(--ease-out), transform 560ms var(--ease-out);
+}
+
+/* Applied by script after the visitor scrolls beyond the opening stage. */
+.logo-transition-ready .brand-splash {
+  opacity: 0;
+  transform: translateY(-1.25rem);
+}
+.logo-transition-ready .brand-splash__mark {
+  transform: scale(0.82);
+}
+.logo-transition-ready .brand-mark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 720px) {
+  .brand-splash__mark {
+    width: min(48vw, 12rem);
+    height: min(48vw, 12rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-splash,
+  .brand-splash__mark,
+  .brand-mark {
+    transition: none;
+  }
+}
 .site-nav { margin-left: auto; }
 .site-nav ul { display: flex; gap: clamp(0.6rem, 1.5vw, 1.65rem); align-items: center; list-style: none; margin: 0; padding: 0; }
 .nav-link { text-decoration: none; font-family: var(--mono); font-size: 0.69rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.4rem 0; border-bottom: 2px solid transparent; }
