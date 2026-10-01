@@ -608,7 +608,7 @@ h3 { font-size: clamp(1.9rem, 2.7vw, 3rem); }
   margin: 0;
   color: var(--ink);       /* CUSTOMIZE: name color */
   font-size: 0.7rem;       /* CUSTOMIZE: name size */
-  font-weight: 500;        /* CUSTOMIZE: 400, 500, 600, or 700 */
+  font-weight: 600;        /* CUSTOMIZE: 400, 500, 600, or 700 */
   line-height: 1.1;
 }
 
@@ -616,7 +616,7 @@ h3 { font-size: clamp(1.9rem, 2.7vw, 3rem); }
   display: block;
   margin: 0.08rem 0 0;     /* CUSTOMIZE: space below name */
   color: var(--muted);     /* CUSTOMIZE: role color */
-  font-size: 0.6rem;       /* CUSTOMIZE: role size */
+  font-size: 0.58rem;       /* CUSTOMIZE: role size */
   font-weight: 400;        /* CUSTOMIZE: role weight */
   line-height: 1.15;
 }
