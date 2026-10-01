@@ -143,6 +143,72 @@ h3 { font-size: clamp(2rem, 3vw, 3.25rem); }
 .about-portrait figcaption { margin: 0 0 0.1rem; font-family: var(--mono); font-size: 0.67rem; font-weight: 700; line-height: 1.35; text-transform: uppercase; }
 .about-portrait figcaption span { color: var(--muted); font-size: 0.58rem; font-weight: 400; }
 @media (max-width: 720px) { .about-portrait__frame { width: 8.5rem; } }
+.about-portrait figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 10rem;
+}
+
+.about-portrait__name {
+  display: inline-block;
+}
+
+.about-socials[hidden] {
+  display: none;
+}
+
+.about-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 0.55rem;
+}
+
+.about-socials__link {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1.5px solid var(--ink);
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 150ms var(--ease-out), background-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+}
+
+.about-socials__link:hover,
+.about-socials__link:focus-visible {
+  background: var(--aqua);
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.about-socials__link:active {
+  transform: translate(2px, 2px) scale(0.97);
+  box-shadow: none;
+}
+
+.about-socials__link img {
+  width: 1.05rem;
+  height: 1.05rem;
+  object-fit: contain;
+}
+
+@media (max-width: 520px) {
+  .about-portrait figcaption {
+    max-width: 8.5rem;
+  }
+
+  .about-socials {
+    gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-socials__link {
+    transition: none;
+  }
+}
 .about-lead { max-width: 36rem; font-size: clamp(1.35rem, 2.1vw, 2rem); font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; }
 .credentials { border-top: var(--line); }
 .credentials-head { padding: 1rem 0 1.1rem; }
