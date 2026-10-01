@@ -599,24 +599,28 @@ h3 { font-size: clamp(1.9rem, 2.7vw, 3rem); }
   line-height: 1.15;
 }
 
-.about-portrait__name {
+.about-socials {
+  margin-bottom: 0.4rem;
+}
+
+.about-portrait figcaption .about-portrait__name {
   display: block;
   margin: 0;
-  color: var(--ink);
-  font-size: 0.9rem;
-  font-weight: 700;
+  color: var(--ink);       /* CUSTOMIZE: name color */
+  font-size: 0.9rem;       /* CUSTOMIZE: name size */
+  font-weight: 700;        /* CUSTOMIZE: 400, 500, 600, or 700 */
   line-height: 1.1;
 }
 
-.about-portrait__role {
+.about-portrait figcaption .about-portrait__role {
   display: block;
-  margin: 0.08rem 0 0;
-  color: var(--muted);
-  font-size: 0.6rem;
-  font-weight: 400;
+  margin: 0.08rem 0 0;     /* CUSTOMIZE: space below name */
+  color: var(--muted);     /* CUSTOMIZE: role color */
+  font-size: 0.6rem;       /* CUSTOMIZE: role size */
+  font-weight: 400;        /* CUSTOMIZE: role weight */
   line-height: 1.15;
 }
 
-.about-socials {
-  margin-bottom: 0.4rem;
+.about-portrait figcaption {
+  gap: 0;
 }
