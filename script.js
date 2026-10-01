@@ -96,6 +96,65 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const parseCsv = (csvText) => {
+  const socialsNav = document.querySelector("[data-socials]");
+if (socialsNav) {
+  const validSocialUrl = (value) => {
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" ? url.href : "";
+    } catch {
+      return "";
+    }
+  };
+
+  const safeSocialIcon = (value) =>
+    /^[A-Za-z0-9][A-Za-z0-9._-]*\.(?:svg|png|jpe?g|webp)$/i.test(value || "") ? value : "";
+
+  const makeSocialLink = (social) => {
+    const url = validSocialUrl(social.url);
+    const iconFilename = safeSocialIcon(social.icon_filename);
+    const platform = social.platform?.trim() || "Social profile";
+    if (!url || !iconFilename) return null;
+
+    const link = document.createElement("a");
+    link.className = "about-socials__link";
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.title = platform;
+    link.setAttribute("aria-label", social.alt_text?.trim() || `${platform} profile`);
+
+    const icon = document.createElement("img");
+    icon.src = `assets/images/socials/${iconFilename}`;
+    icon.alt = "";
+    icon.setAttribute("aria-hidden", "true");
+    icon.loading = "lazy";
+    icon.decoding = "async";
+    icon.addEventListener("error", () => link.remove(), { once: true });
+
+    link.append(icon);
+    return link;
+  };
+
+  fetch("assets/data/socials.csv", { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Socials CSV was unavailable.");
+      return response.text();
+    })
+    .then((csvText) => {
+      const links = parseCsv(csvText)
+        .filter((item) => item.status.trim().toLowerCase() === "published")
+        .map(makeSocialLink)
+        .filter(Boolean);
+      if (!links.length) return;
+      socialsNav.replaceChildren(...links);
+      socialsNav.hidden = false;
+    })
+    .catch(() => {
+      // The social rail remains hidden when the optional CSV is unavailable.
+    });
+}
+    
   const rows = [];
   let cell = "";
   let row = [];
