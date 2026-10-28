@@ -93,7 +93,161 @@
           <div class="hero-visual__grid"></div>
           <div class="paper-chip paper-chip--yellow">CLEAN<br />RECORDS</div>
           <div class="paper-chip paper-chip--aqua">ON<br />TRACK</div>
-          <img class="hero-art" src="assets/images/mandantes-hero-ledger.jpg" alt="" onerror="this.hidden=true" />
+          <!-- ===== Mandantes hero: software previews =====
+            HOW TO USE: replace the current hero <img> (mandantes-hero-ledger.jpg) with this whole block.
+            Everything is scoped under .mhv, so it won't touch your other styles.
+            Tweak the colour variables and --dur (seconds per software) just below.
+          -->
+          <div class="mhv" role="img" aria-label="Previews of QuickBooks Online, Xero, Wave, Zoho Books and Excel">
+          <style>
+          .mhv{--mhv-accent:#f4d447;--mhv-ink:#16130c;--mhv-paper:#fbf8ee;--mhv-line:rgba(22,19,12,.13);--dur:8s;
+            width:100%;max-width:640px;margin-inline:auto;font-family:inherit;color:var(--mhv-ink);
+            border:2px solid var(--mhv-ink);border-radius:14px;background:var(--mhv-paper);
+            box-shadow:8px 8px 0 var(--mhv-accent);overflow:hidden;position:relative;box-sizing:border-box}
+          .mhv *{box-sizing:border-box}
+          .mhv-tabs{display:flex;border-bottom:2px solid var(--mhv-ink);background:#fff;overflow-x:auto;scrollbar-width:none}
+          .mhv-tabs::-webkit-scrollbar{display:none}
+          .mhv-tab{flex:1 0 auto;min-width:92px;height:46px;display:grid;place-items:center;padding:0 12px;border:0;
+            border-right:1px solid var(--mhv-line);background:transparent;cursor:pointer;position:relative;opacity:.5;transition:opacity .3s,background .3s}
+          .mhv-tab:last-child{border-right:0}
+          .mhv-tab img{height:20px;width:auto;max-width:100px;object-fit:contain;display:block}
+          .mhv-tab.on{opacity:1;background:var(--mhv-paper)}
+          .mhv-tab:focus-visible{outline:2px solid var(--mhv-ink);outline-offset:-4px}
+          .mhv-tab::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--mhv-accent)}
+          .mhv-tab.on::after{animation:mhv-p var(--dur) linear forwards}
+          .mhv-win{position:relative;aspect-ratio:4/3.1;background:#fff}
+          .mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;background:#fff}
+          .mhv-pane.on{opacity:1;visibility:visible}
+          .mhv-hd{display:flex;align-items:center;gap:10px;padding:0 14px;height:48px;border-bottom:1px solid var(--mhv-line);flex:none}
+          .mhv-sp{flex:1}
+          .mhv-bd{display:flex;flex:1;min-height:0}
+          .mhv-side{width:19%;flex:none;background:#fff;border-right:1px solid var(--mhv-line);padding:12px 8px;display:flex;flex-direction:column;gap:4px}
+          .mhv-side.rail{width:9%;align-items:center;gap:16px;padding:12px 4px}
+          .mhv-vp{flex:1;overflow:hidden;min-width:0}
+          .mhv-sc{padding:14px;display:flex;flex-direction:column;gap:12px}
+          .mhv-pane.on .mhv-sc{animation:mhv-s calc(var(--dur) - 1.4s) ease-in-out .6s forwards}
+          .mhv-badge{position:absolute;right:14px;bottom:14px;z-index:3;background:#fff;border:2px solid var(--mhv-ink);border-radius:12px;padding:12px 20px;box-shadow:4px 4px 0 var(--mhv-accent);display:flex}
+          .mhv-badge img{height:44px;width:auto;max-width:210px;display:block}
+          .sk{display:block;border-radius:4px;background:linear-gradient(90deg,#e3e5e8 25%,#f1f2f4 50%,#e3e5e8 75%);background-size:200% 100%;animation:mhv-sh 1.5s linear infinite;flex:none}
+          .sk.d{background:linear-gradient(90deg,rgba(255,255,255,.22) 25%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.22) 75%);background-size:200% 100%}
+          .sk.r{border-radius:50%}
+.sk.c{background:var(--c);opacity:.5;animation:none}
+.bt{display:block;height:24px;border-radius:6px;border:1.5px solid var(--c);background:#fff;flex:none}
+.bt.s{background:var(--c)}.bt.p{border-radius:999px}
+.inp{display:block;height:26px;border:1px solid #cfd4d8;border-radius:4px;background:#fff;flex:1}
+.chk{display:block;width:14px;height:14px;border:1.5px solid #b9bdc4;border-radius:3px;background:#fff;flex:none}
+.mc{background:#fff;border:1px solid var(--mhv-line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:9px}
+.g2,.g3,.g4{display:grid;gap:12px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.li{display:flex;align-items:center;gap:10px}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:6px}.ni.a{background:var(--na,#e8edf3)}
+.tr{display:grid;gap:10px;align-items:center;padding:12px 8px;border-top:1px solid var(--mhv-line)}
+.tr.hb{background:#eceef1;border:0;padding:10px 8px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:86px}
+.bars i{flex:1;background:var(--c);opacity:.32;border-radius:3px 3px 0 0}.bars i:nth-child(odd){opacity:.7}
+.cf{display:flex;flex-direction:column;gap:2px;height:130px}.cf>div{flex:1;display:flex;gap:7px}
+.cf .up{align-items:flex-end}.cf .dn{align-items:flex-start}.cf i{flex:1;border-radius:2px}
+.cf .up i{background:#9aa7ae}.cf .dn i{background:repeating-linear-gradient(45deg,#c4cbd0 0 2px,#eef1f2 2px 5px)}
+.xl{display:grid;grid-template-columns:30px repeat(7,1fr);font-size:10px}
+.xl b{font-weight:600;text-align:center;padding:5px 0;background:#ece9dc;border-right:1px solid #d8d3bf;border-bottom:1px solid #d8d3bf;color:#6b6652}
+.xl span{height:26px;padding:8px 6px;border-right:1px solid #e4e0d0;border-bottom:1px solid #e4e0d0;background:#fff}
+.xl span.f{background:#f6fbf7}
+.mhv:hover *,.mhv:hover *::after{animation-play-state:paused!important}
+@keyframes mhv-p{to{width:100%}}
+@keyframes mhv-s{to{transform:translateY(calc(var(--d,0)*-1px))}}
+@keyframes mhv-sh{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.sk,.mhv-pane.on .mhv-sc{animation:none}}
+@media (max-width:480px){.mhv-badge{right:10px;bottom:10px;padding:8px 14px}.mhv-badge img{height:30px;max-width:150px}.mhv{box-shadow:5px 5px 0 var(--mhv-accent)}.mhv-side{display:none}.g4{grid-template-columns:1fr 1fr}}
+</style>
+<div class="mhv-tabs" role="tablist"></div>
+<div class="mhv-win"></div>
+<script>
+(function(){
+var root=document.currentScript.parentElement;
+var B='https://mandantes-cpa.com/assets/images/software/';
+var sk=function(w,h,c,x){return '<i class="sk '+(c||'')+'" style="width:'+w+';height:'+(h||8)+'px;'+(x||'')+'"></i>'};
+var sp='<span style="flex:1"></span>';
+var btn=function(w,s,p){return '<i class="bt'+(s?' s':'')+(p?' p':'')+'" style="width:'+w+'"></i>'};
+var card=function(x,st){return '<div class="mc" style="'+(st||'')+'">'+x+'</div>'};
+var bars=function(a){return '<div class="bars">'+a.map(function(h){return '<i style="height:'+h+'%"></i>'}).join('')+'</div>'};
+var cf=function(){var u=[70,50,85,45,80,55,40,65,75,38,60,70],d=[65,40,60,45,70,50,35,60,72,55,48,66];
+  return '<div class="cf"><div class="up">'+u.map(function(h){return '<i style="height:'+h+'%"></i>'}).join('')+'</div><div class="dn">'+d.map(function(h){return '<i style="height:'+h+'%"></i>'}).join('')+'</div></div>'};
+var nav=function(n,a,d){var s='';for(var i=0;i<n;i++)s+='<div class="ni'+(i===a?' a':'')+'">'+sk('14px',14,d?'d':'')+sk((50+(i*13)%32)+'%',8,d?'d':'')+'</div>';return s};
+var qrow=function(h){var g='grid-template-columns:20px 1.1fr 1.7fr .9fr .9fr 1.3fr 1.5fr .6fr';
+  return '<div class="tr'+(h?' hb':'')+'" style="'+g+'"><i class="chk"></i>'+[0,1,2,3,4,5,6].map(function(i){return h?sk('60%',7,'c'):sk((40+(i*17)%45)+'%',8,i===6?'c':'')}).join('')+'</div>'};
+var qt=function(n){var s=qrow(1);for(var i=0;i<n;i++)s+=qrow();return '<div class="mc" style="padding:0;gap:0;overflow:hidden">'+s+'</div>'};
+var xrow=function(){
+  var left='<div style="display:flex;flex-direction:column;gap:8px">'+sk('50%',7)+card('<div class="li" style="align-items:stretch"><div style="flex:1;display:flex;flex-direction:column;gap:7px">'+sk('34%',7)+sk('72%',10)+sk('42%',7)+sk('26%',7,'c')+'</div><div style="width:22%;border-left:1px solid var(--mhv-line);padding-left:10px">'+sk('60%',9)+'</div><div style="width:18%;border-left:1px solid var(--mhv-line);padding-left:10px">'+sk('50%',7)+'</div></div>')+'</div>';
+  var right='<div style="display:flex;flex-direction:column;gap:8px"><div class="li" style="gap:14px">'+sk('12%',8)+sk('12%',8,'c')+sk('13%',8)+sk('12%',8)+sp+sk('18%',7,'c')+'</div>'+card('<div class="li">'+sk('9%',7)+'<i class="inp"></i>'+sk('9%',7)+'<i class="inp"></i></div><div class="li">'+sk('9%',7)+'<i class="inp"></i></div><div class="li" style="border-top:1px solid var(--mhv-line);padding-top:8px;gap:14px">'+sk('18%',7)+sk('18%',7)+sp+sk('16%',7,'c')+'</div>')+'</div>';
+  return '<div class="g2" style="gap:18px">'+left+right+'</div>'};
+var xl=function(){var s='',c;for(var r=1;r<=34;r++){s+='<b>'+r+'</b>';for(c=0;c<7;c++){var v=(r*7+c*13)%5;s+='<span'+(v<3&&r>1?' class="f"':'')+'>'+(v<3?sk((35+v*20+c*3)+'%',6):'')+'</span>'}}return '<div class="xl" style="margin:-14px">'+s+'</div>'};
+var strow=function(n){var s='';for(var i=0;i<n;i++)s+='<div class="li" style="padding:14px 6px;border-top:1px solid var(--mhv-line)">'+sk('30px',30,'r')+sk((16+i*5%14)+'%',9,'c')+sp+sk('11%',8)+sk('13%',8)+sk('18px',18,'r')+'</div>';return s};
+
+var APPS=[
+/* ---------- QuickBooks Online ---------- */
+{n:'QuickBooks Online',f:'quickbooks-online.png',c:'#2ca01c',bg:'#f4f5f8',hdbg:'#fff',
+ hd:sk('26px',26,'c r')+sk('13%',9)+'<i class="inp" style="background:#eef0f3;border:0;max-width:44%;height:28px"></i>'+sp+sk('12%',8)+sk('18px',18,'r')+sk('18px',18,'r')+sk('22px',22,'c r'),
+ side:'<div class="mhv-side rail" style="background:#fff">'+[0,1,2,3,4,5,6].map(function(){return '<div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:100%">'+sk('18px',18)+sk('70%',6)+'</div>'}).join('')+'</div><div class="mhv-side" style="width:22%;background:#fff;border-left:1px solid var(--mhv-line)">'+sk('42%',8)+'<div style="height:4px"></div>'+nav(12,1)+'</div>',
+ main:sk('20%',7)+'<div class="li">'+sk('34%',24)+sp+btn('70px')+btn('72px',1)+'</div><div class="li">'+sk('34px',34,'r c')+sk('18%',14)+'</div><div class="g3">'+[1,0,0].map(function(g){return card(sk('50%',8)+sk('72%',16)+sk('45%',8),g?'border:2px solid var(--c)':'')}).join('')+'</div>'+'<div style="background:#d9dde2;border-radius:6px;padding:5px;display:flex;gap:10px;width:62%">'+sk('34%',12,'',"background:#fff;animation:none")+sk('22%',12)+sk('24%',12)+'</div>'+'<div class="li" style="gap:8px"><i class="inp" style="max-width:28%"></i><i class="inp" style="max-width:20%"></i><i class="inp" style="max-width:26%"></i></div>'+qt(10)},
+/* ---------- Xero ---------- */
+{n:'Xero',f:'xero.png',c:'#0078c8',bg:'#fff',hdbg:'#1b6bd4',
+ hd:sk('9%',14,'d')+'<i class="sk d" style="width:20%;height:28px;border-radius:5px;animation:none"></i>'+[0,1,2,3,4,5].map(function(){return sk('8%',8,'d')}).join('')+sp+sk('16px',16,'d r')+sk('16px',16,'d r')+sk('30px',30,'','background:#bdf0ff;border-radius:50%;animation:none'),
+ side:'',
+ main:sk('9%',7,'c')+sk('42%',16)+'<div class="li" style="gap:22px">'+[0,1].map(function(){return '<div style="display:flex;flex-direction:column;gap:5px;width:90px">'+sk('90%',18)+sk('70%',7)+'</div>'}).join('')+sp+btn('100px')+btn('92px')+'</div>'
+  +'<div class="li" style="background:#dbe9f6;border-radius:4px;padding:12px">'+sk('52%',9)+sp+sk('14%',8,'c')+btn('96px',1)+'</div>'
+  +card('<div class="li" style="gap:22px;padding:8px 6px">'+sk('16%',9,'c')+sk('12%',9)+sk('14%',9)+sk('16%',9)+sk('14%',9)+'</div><i class="inp" style="background:#eef0f2;border:0;height:30px;flex:none"></i>','padding:6px 8px 12px;gap:6px')
+  +'<div style="background:#e8ebee;margin:0 -14px -14px;padding:16px 14px;display:flex;flex-direction:column;gap:22px">'+xrow()+xrow()+xrow()+'</div>'},
+/* ---------- Wave ---------- */
+{n:'Wave',f:'wave.png',c:'#1b6fe8',bg:'#fff',hdbg:'#f1f6fc',
+ hd:sk('13%',14,'c')+sp+sk('26px',26)+sk('26px',26)+sk('24%',26),
+ side:'<div class="mhv-side" style="--na:#e3ecfa"><div class="ni">'+sk('14px',14,'c r')+sk('55%',9,'c')+'</div>'+nav(10,0)+'</div>',
+ main:'<div class="li">'+sk('36%',30)+sp+btn('78px',0,1)+'</div><div class="g4">'+['#e6f7ee','#e2effc','#eee6f8','#fdeee4'].map(function(bg){return card('<div style="display:flex;justify-content:center">'+sk('62%',9)+'</div>','background:'+bg+';border:0;padding:12px 6px')}).join('')+'</div>'
+  +'<div class="li">'+sk('28%',20)+sp+btn('84px',0,1)+'</div>'
+  +'<div class="g2">'+card('<div class="li">'+sk('50%',12)+'</div><div style="align-self:center;margin:12px 0 4px">'+sk('84px',84,'c r')+'</div>'+sk('70%',8,'','align-self:center')+'<i class="bt p" style="width:88px;align-self:center"></i>')
+  +card('<div class="li">'+sk('34%',12)+sk('18%',12,'c')+sp+btn('70px',0,1)+'</div><div class="li" style="gap:14px">'+sk('26%',7)+sp+'<i class="inp" style="max-width:42%"></i></div>'+cf())+'</div>'
+  +'<div class="g2">'+card('<div class="li">'+sk('70px',70,'c r')+'<div style="flex:1;display:flex;flex-direction:column;gap:8px">'+sk('60%',11)+sk('80%',7)+btn('80px',1,1)+'</div></div>','background:#fdeee4;border:0')+card('<div class="li">'+sk('38%',12)+sk('16%',12,'c')+sp+btn('64px',0,1)+'</div>'+bars([45,60,75,50,85,65,95,55,70]))+'</div>'
+  +card(sk('30%',12)+bars([50,70,40,85,60,75,45,90,65,55]))},
+/* ---------- Zoho Books ---------- */
+{n:'Zoho Books',f:'zoho-books.png',c:'#2d7ff9',bg:'#fff',hdbg:'#1d2236',
+ hd:sk('12%',16,'d')+'<i class="sk d" style="width:34%;height:28px;border-radius:5px;animation:none;margin-left:14px"></i>'+sp+sk('18%',8,'d')+sk('30px',28,'','background:#2d7ff9;border-radius:5px;animation:none')+sk('16px',16,'d r')+sk('30px',30,'d r'),
+ side:'<div class="mhv-side" style="--na:#dbe8fd;background:#fff">'+nav(5,-1)+'<div style="height:8px"></div>'+'<div class="ni a" style="background:#2d7ff9">'+sk('14px',14,'d')+sk('52%',9,'d')+'</div>'+nav(5,-1)+sk('22%',6,'','margin:10px 8px 4px')+nav(2,-1)+'</div>',
+ main:'<div class="li" style="margin:-14px -14px 0;padding:14px;border-bottom:1px solid var(--mhv-line)">'+sk('34%',20)+sp+btn('84px',1)+btn('96px')+btn('52px')+'</div>'
+  +card('<div class="li" style="border-bottom:1px solid var(--mhv-line);padding-bottom:10px">'+sk('24%',16)+sp+sk('20%',8)+'</div><div class="g3" style="padding:6px 0">'+[['#eef0f2','#fff'],['#dff6e9'],['#ece6fa']].map(function(a){return '<div class="li">'+sk('40px',40,'','background:'+a[0]+';animation:none;border-radius:8px')+'<div style="display:flex;flex-direction:column;gap:6px;flex:1">'+sk('70%',7)+sk('90%',13)+'</div></div>'}).join('')+'</div>'+sk('22%',8,'c'),'border-radius:14px;padding:16px')
+  +sk('30%',16,'','margin-top:6px')
+  +'<div class="mc" style="padding:0;gap:0;overflow:hidden"><div class="tr hb" style="grid-template-columns:2fr 1fr 1fr 1fr 1fr 20px;background:#f3f4f7">'+[0,1,2,3,4].map(function(){return sk('60%',7,'c')}).join('')+'<span></span></div>'+strow(9)+'</div>'},
+/* ---------- Excel ---------- */
+{n:'Excel',f:'excel.svg',c:'#217346',bg:'#fff',hdbg:'#217346',
+ hd:sk('26px',22,'d')+sk('20%',9,'d')+sp+sk('14%',9,'d')+sk('26px',26,'d r'),
+ top:'<div class="li" style="padding:7px 12px;background:#f3f2ee;gap:16px">'+[0,1,2,3,4,5,6].map(function(i){return sk('38px',8,i?'':'c')}).join('')+'</div><div class="li" style="padding:6px 12px;background:#f3f2ee;gap:8px;border-bottom:1px solid var(--mhv-line)">'+[0,1,2,3,4,5,6,7,8,9,10,11].map(function(){return sk('24px',22)}).join('')+'</div><div class="li" style="padding:6px 12px;border-bottom:1px solid #e4e0d0">'+sk('56px',18)+sk('14px',14,'c')+sk('50%',9)+'</div><div class="xl"><b></b>'+'ABCDEFG'.split('').map(function(l){return '<b>'+l+'</b>'}).join('')+'</div>',
+ side:'',main:xl()}
+];
+var tabs=root.querySelector('.mhv-tabs'),win=root.querySelector('.mhv-win'),T=[],P=[],cur=0;
+APPS.forEach(function(a,i){
+  var logo='<img src="'+B+a.f+'" alt="" loading="eager" onerror="this.parentNode.style.display=\'none\'">';
+  var b=document.createElement('button');b.className='mhv-tab';b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-label',a.n);b.innerHTML=logo;
+  b.onclick=function(){go(i)};tabs.appendChild(b);T.push(b);
+  var p=document.createElement('section');p.className='mhv-pane';p.style.setProperty('--c',a.c);p.setAttribute('aria-hidden','true');
+  p.innerHTML='<header class="mhv-hd" style="background:'+a.hdbg+'">'+a.hd+'</header>'+(a.top||'')
+   +'<div class="mhv-bd" style="background:'+a.bg+'">'+a.side+'<div class="mhv-vp"><div class="mhv-sc">'+a.main+'</div></div></div>'
+   +'<span class="mhv-badge">'+logo+'</span>';
+  win.appendChild(p);P.push(p);
+});
+function measure(){var p=P[cur],sc=p.querySelector('.mhv-sc'),vp=p.querySelector('.mhv-vp');sc.style.setProperty('--d',Math.max(0,sc.offsetHeight-vp.clientHeight))}
+function go(i){
+  cur=(i+APPS.length)%APPS.length;
+  T.forEach(function(t,k){t.classList.remove('on');t.setAttribute('aria-selected',k===cur)});
+  P.forEach(function(p){p.classList.remove('on');p.querySelector('.mhv-sc').style.animation='none'});
+  void root.offsetHeight;
+  P[cur].classList.add('on');P[cur].querySelector('.mhv-sc').style.animation='';
+  T[cur].classList.add('on');measure();
+  if(tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:T[cur].offsetLeft-20,behavior:'smooth'});
+}
+tabs.addEventListener('animationend',function(e){if(e.animationName==='mhv-p')go(cur+1)});
+window.addEventListener('resize',measure);
+go(0);
+})();
+</script>
+</div>
+
           <div class="balance-sign balance-sign--large"><span></span><span></span><i></i></div>
         </div>
       </section>
