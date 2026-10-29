@@ -93,7 +93,7 @@
 <style>
 .hero-visual{border:0;background:transparent;box-shadow:none;overflow:visible}
 .hero-visual.reveal:hover{box-shadow:none;transform:none}
-.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;container-type:inline-size;
+.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;container-type:inline-size;overflow:hidden;
   font-family:var(--mono);color:var(--ink)}
 .mhv *{box-sizing:border-box}
 .mhv-tabs{position:absolute;z-index:10;top:.55rem;left:.55rem;right:calc(9px + .55rem);display:flex;height:2rem;background:rgba(255,253,248,.9);border:1px solid rgba(34,33,31,.3);
@@ -112,13 +112,11 @@
 .mhv-pause:hover{opacity:1;color:var(--coral)}
 .mhv-pause svg{width:11px;height:11px}
 .mhv-win{position:relative;flex:1;min-height:0;margin:0 9px 9px 0}
-.mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--white);border:var(--line);
+.mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--white);border:var(--line);box-shadow:3px 3px 0 var(--ink);
   transform:translate(9px,9px);z-index:1;pointer-events:none}
-.mhv-pane::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
-  background:linear-gradient(180deg,transparent 0,transparent 34%,var(--ink) 66%,var(--ink) 100%);background-size:100% 300%;background-position:0 100%}
 .mhv-pane.p1{z-index:2}
-.mhv-pane.on{z-index:4;transform:none;pointer-events:auto;animation:mhv-top .8s var(--ease-out)}
-.mhv-pane.on::after{background-position:0 0;transition:background-position .9s cubic-bezier(.45,0,.2,1) .05s}
+.mhv-pane.on{z-index:4;transform:none;pointer-events:auto;transition:transform .6s var(--motion-spring,cubic-bezier(.16,1,.3,1))}
+.mhv-pane.out{z-index:5;animation:mhv-swipe .65s cubic-bezier(.55,0,.9,.4) forwards}
 .mhv-hd{display:flex;align-items:center;gap:10px;padding:0 12px;height:2.7rem;border-bottom:1px solid var(--mhv-line);flex:none}
 .mhv-sp{flex:1}
 .mhv-bd{display:flex;flex:1;min-height:0}
@@ -155,7 +153,7 @@
 
 .mhv:hover *:not(.mhv-pane),.mhv:hover *::after,.mhv.is-paused *:not(.mhv-pane),.mhv.is-paused *::after,.mhv.is-off *:not(.mhv-pane),.mhv.is-off *::after{animation-play-state:paused!important}
 @keyframes mhv-p{to{width:100%}}
-@keyframes mhv-top{0%{transform:translate(9px,9px)}50%{transform:translate(-6px,-6px) rotate(-.4deg)}100%{transform:none}}
+@keyframes mhv-swipe{0%{transform:none}24%{transform:translate(3%,1%) rotate(1.2deg)}100%{transform:translate(135%,5%) rotate(11deg)}}
 @keyframes mhv-s{to{transform:translateY(calc(var(--d,0)*-1px))}}
 @keyframes mhv-sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.sk,.mhv-pane.on .mhv-sc{animation:none!important}.mhv-pane.on .mhv-sc{transform:none}}
@@ -237,15 +235,16 @@ APPS.forEach(function(a,i){
   win.appendChild(p);P.push(p);
 });
 function measure(){var p=P[cur],sc=p.querySelector('.mhv-sc'),vp=p.querySelector('.mhv-vp');sc.style.setProperty('--d',Math.max(0,sc.offsetHeight-vp.clientHeight))}
+var tm=[],started=0;
 function go(i){
-  cur=(i+APPS.length)%APPS.length;
+  var n=APPS.length,old=cur;cur=(i+n)%n;
   T.forEach(function(t,k){t.classList.remove('on');t.setAttribute('aria-selected',k===cur)});
-  var n=APPS.length;
-  P.forEach(function(p,k){var d=(k-cur+n)%n;p.classList.remove('on','p1');p.querySelector('.mhv-sc').style.animation='none';if(!d)p.classList.add('on');else if(d===1)p.classList.add('p1')});
+  P.forEach(function(p,k){var d=(k-cur+n)%n;clearTimeout(tm[k]);p.classList.remove('on','p1','out');p.querySelector('.mhv-sc').style.animation='none';if(!d)p.classList.add('on');else if(d===1)p.classList.add('p1')});
+  if(started&&old!==cur){var po=P[old];po.classList.add('out');tm[old]=setTimeout(function(){po.classList.remove('out')},700)}
+  started=1;
   void root.offsetHeight;
   P[cur].querySelector('.mhv-sc').style.animation='';
   T[cur].classList.add('on');measure();
-  
 }
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var PS='<svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>',PL='<svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>';
