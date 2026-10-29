@@ -88,25 +88,28 @@
           <p class="microcopy">Start with the form or schedule a conversation.</p>
         </div>
         <div class="hero-visual reveal">
-  <div class="hero-visual__grid" aria-hidden="true"></div>
   <div class="paper-chip paper-chip--yellow" aria-hidden="true">CLEAN<br />RECORDS</div>
   <div class="paper-chip paper-chip--aqua" aria-hidden="true">ON<br />TRACK</div>
   <!-- Software previews (replaces hero-art image + balance sign). Self-contained: CSS + JS below, scoped to .mhv -->
   <div class="mhv" role="group" aria-label="Previews of QuickBooks Online, Xero, Wave, Zoho Books and Excel">
 <style>
-.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:4.5rem 1.6rem 3.2rem;z-index:2;display:flex;flex-direction:column;container-type:inline-size;
+.hero-visual{border:0;background:transparent;box-shadow:none;overflow:visible}
+.hero-visual.reveal:hover{box-shadow:none;transform:none}
+.hero-visual .paper-chip--aqua{top:.2rem;right:1rem}
+.hero-visual .paper-chip--yellow{bottom:.2rem;left:1rem}
+.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:3.2rem 0;z-index:2;display:flex;flex-direction:column;container-type:inline-size;
   border:var(--line);background:var(--white);box-shadow:4px 4px 0 var(--ink);font-family:var(--mono);color:var(--ink)}
 .mhv *{box-sizing:border-box}
 .mhv-tabs{display:flex;flex:none;border-bottom:var(--line);background:var(--paper)}
-.mhv-tab{flex:1 1 0;min-width:0;height:2.6rem;display:grid;place-items:center;padding:0 .4rem;border:0;border-right:2px solid var(--ink);background:transparent;cursor:pointer;position:relative;
+.mhv-tab{flex:1 1 0;min-width:0;height:2.9rem;display:grid;place-items:center;padding:0 .4rem;border:0;border-right:2px solid var(--ink);background:transparent;cursor:pointer;position:relative;
   font:700 .6rem var(--mono);text-transform:uppercase;color:var(--ink);transition:background 150ms var(--ease-out)}
-.mhv-tab img{height:1.15rem;width:auto;max-width:100%;object-fit:contain;display:block;opacity:.5;transition:opacity 150ms var(--ease-out)}
+.mhv-tab img{height:1.4rem;width:auto;max-width:100%;object-fit:contain;display:block;opacity:.5;transition:opacity 150ms var(--ease-out)}
 .mhv-tab.on{background:var(--yellow)}.mhv-tab.on img{opacity:1}
 .mhv-tab:not(.on):hover{background:var(--aqua)}.mhv-tab:hover img{opacity:1}
 .mhv-tab:focus-visible,.mhv-pause:focus-visible{outline:3px solid var(--coral);outline-offset:-5px}
 .mhv-tab::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--coral)}
 .mhv-tab.on::after{animation:mhv-p var(--dur) linear forwards}
-.mhv-pause{flex:none;width:2.6rem;border:0;border-right:2px solid var(--ink);background:var(--ink);color:var(--white);font:700 .68rem var(--mono);cursor:pointer;transition:background 150ms var(--ease-out)}
+.mhv-pause{flex:none;width:2.9rem;display:grid;place-items:center;padding:0;border:0;border-right:2px solid var(--ink);background:var(--ink);color:var(--white);font:700 .68rem var(--mono);cursor:pointer;transition:background 150ms var(--ease-out)}
 .mhv-pause:hover{background:var(--coral)}
 .mhv-win{position:relative;flex:1;min-height:0;background:var(--white)}
 .mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;background:var(--white)}
@@ -119,8 +122,8 @@
 .mhv-vp{flex:1;overflow:hidden;min-width:0}
 .mhv-sc{padding:14px;display:flex;flex-direction:column;gap:12px}
 .mhv-pane.on .mhv-sc{animation:mhv-s calc(var(--dur) - 1.4s) ease-in-out .6s forwards}
-.mhv-badge{position:absolute;right:.9rem;bottom:.9rem;z-index:3;display:flex;align-items:center;padding:.55rem .9rem;background:var(--white);border:var(--line);box-shadow:3px 3px 0 var(--ink);font:700 .7rem var(--mono);text-transform:uppercase}
-.mhv-badge img{height:2.6rem;width:auto;max-width:9.5rem;display:block}
+.mhv-badge{position:absolute;right:.9rem;bottom:.9rem;z-index:3;display:flex;align-items:center;padding:.7rem 1.1rem;background:var(--white);border:var(--line);box-shadow:3px 3px 0 var(--ink);font:700 .7rem var(--mono);text-transform:uppercase}
+.mhv-badge img{height:3.6rem;width:auto;max-width:12.5rem;display:block}
 .sk{display:block;border-radius:4px;background:linear-gradient(90deg,var(--paper-deep) 25%,var(--paper) 50%,var(--paper-deep) 75%);background-size:200% 100%;animation:mhv-sh 1.5s linear infinite;flex:none}
 .sk.d{background:linear-gradient(90deg,rgba(255,255,255,.22) 25%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.22) 75%);background-size:200% 100%}
 .sk.r{border-radius:50%}
@@ -150,10 +153,9 @@
 @keyframes mhv-s{to{transform:translateY(calc(var(--d,0)*-1px))}}
 @keyframes mhv-sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.sk,.mhv-pane.on .mhv-sc{animation:none!important}.mhv-pane.on .mhv-sc{transform:none}}
-.mhv .mc,.mhv .bt,.mhv .inp,.mhv .chk,.mhv .sk:not(.r),.mhv [style*="border-radius:"]:not([style*="50%"]){border-radius:0!important}
 @container (max-width:430px){.mhv-side.x{display:none}.g4{grid-template-columns:1fr 1fr}}
 @container (max-width:340px){.mhv-side{display:none}.g3{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.hero-visual{min-height:30rem}.mhv{inset:4.2rem 1rem 2.8rem}}
+@media (max-width:640px){.hero-visual{min-height:30rem}.mhv{inset:3rem 0}}
 </style>
 <div class="mhv-tabs"></div>
 <div class="mhv-win" aria-hidden="true"></div>
@@ -181,12 +183,12 @@ var strow=function(n){var s='';for(var i=0;i<n;i++)s+='<div class="li" style="pa
 
 var APPS=[
 /* ---------- QuickBooks Online ---------- */
-{n:'QuickBooks Online',f:'quickbooks-online.png',c:'#2ca01c',bg:'#f4f5f8',hdbg:'#fff',
+{n:'QuickBooks Online',f:'quickbooks-online.svg',c:'#2ca01c',bg:'#f4f5f8',hdbg:'#fff',
  hd:sk('26px',26,'c r')+sk('13%',9)+'<i class="inp" style="background:#eef0f3;border:0;max-width:44%;height:28px"></i>'+sp+sk('12%',8)+sk('18px',18,'r')+sk('18px',18,'r')+sk('22px',22,'c r'),
  side:'<div class="mhv-side rail" style="background:#fff">'+[0,1,2,3,4,5,6].map(function(){return '<div style="display:flex;flex-direction:column;align-items:center;gap:5px;width:100%">'+sk('18px',18)+sk('70%',6)+'</div>'}).join('')+'</div><div class="mhv-side x" style="width:22%;background:#fff;border-left:1px solid var(--mhv-line)">'+sk('42%',8)+'<div style="height:4px"></div>'+nav(12,1)+'</div>',
  main:sk('20%',7)+'<div class="li">'+sk('34%',24)+sp+btn('70px')+btn('72px',1)+'</div><div class="li">'+sk('34px',34,'r c')+sk('18%',14)+'</div><div class="g3">'+[1,0,0].map(function(g){return card(sk('50%',8)+sk('72%',16)+sk('45%',8),g?'border:2px solid var(--c)':'')}).join('')+'</div>'+'<div style="background:#d9dde2;border-radius:6px;padding:5px;display:flex;gap:10px;width:62%">'+sk('34%',12,'',"background:#fff;animation:none")+sk('22%',12)+sk('24%',12)+'</div>'+'<div class="li" style="gap:8px"><i class="inp" style="max-width:28%"></i><i class="inp" style="max-width:20%"></i><i class="inp" style="max-width:26%"></i></div>'+qt(10)},
 /* ---------- Xero ---------- */
-{n:'Xero',f:'xero.png',c:'#0078c8',bg:'#fff',hdbg:'#1b6bd4',
+{n:'Xero',f:'xero-brandmark.svg',c:'#0078c8',bg:'#fff',hdbg:'#1b6bd4',
  hd:sk('9%',14,'d')+'<i class="sk d" style="width:20%;height:28px;border-radius:5px;animation:none"></i>'+[0,1,2,3,4,5].map(function(){return sk('8%',8,'d')}).join('')+sp+sk('16px',16,'d r')+sk('16px',16,'d r')+sk('30px',30,'','background:#bdf0ff;border-radius:50%;animation:none'),
  side:'',
  main:sk('9%',7,'c')+sk('42%',16)+'<div class="li" style="gap:22px">'+[0,1].map(function(){return '<div style="display:flex;flex-direction:column;gap:5px;width:90px">'+sk('90%',18)+sk('70%',7)+'</div>'}).join('')+sp+btn('100px')+btn('92px')+'</div>'
@@ -207,7 +209,7 @@ var APPS=[
 {n:'Zoho Books',f:'zoho-books.png',c:'#2d7ff9',bg:'#fff',hdbg:'#1d2236',
  hd:sk('12%',16,'d')+'<i class="sk d" style="width:34%;height:28px;border-radius:5px;animation:none;margin-left:14px"></i>'+sp+sk('18%',8,'d')+sk('30px',28,'','background:#2d7ff9;border-radius:5px;animation:none')+sk('16px',16,'d r')+sk('30px',30,'d r'),
  side:'<div class="mhv-side" style="--na:#dbe8fd;background:#fff">'+nav(5,-1)+'<div style="height:8px"></div>'+'<div class="ni a" style="background:#2d7ff9">'+sk('14px',14,'d')+sk('52%',9,'d')+'</div>'+nav(5,-1)+sk('22%',6,'','margin:10px 8px 4px')+nav(2,-1)+'</div>',
- main:'<div class="li" style="margin:-14px -14px 0;padding:14px;border-bottom:1px solid var(--mhv-line)">'+sk('34%',20)+sp+btn('84px',1)+btn('96px')+btn('52px')+'</div>'
+ main:'<div class="li" style="margin:-14px -14px 0;padding:14px;border-bottom:1px solid var(--mhv-line)">'+sk('34%',20)+sp+btn('72px',1)+btn('84px')+'</div>'
   +card('<div class="li" style="border-bottom:1px solid var(--mhv-line);padding-bottom:10px">'+sk('24%',16)+sp+sk('20%',8)+'</div><div class="g3" style="padding:6px 0">'+[['#eef0f2','#fff'],['#dff6e9'],['#ece6fa']].map(function(a){return '<div class="li">'+sk('40px',40,'','background:'+a[0]+';animation:none;border-radius:8px')+'<div style="display:flex;flex-direction:column;gap:6px;flex:1">'+sk('70%',7)+sk('90%',13)+'</div></div>'}).join('')+'</div>'+sk('22%',8,'c'),'border-radius:14px;padding:16px')
   +sk('30%',16,'','margin-top:6px')
   +'<div class="mc" style="padding:0;gap:0;overflow:hidden"><div class="tr hb" style="grid-template-columns:2fr 1fr 1fr 1fr 1fr 20px;background:#f3f4f7">'+[0,1,2,3,4].map(function(){return sk('60%',7,'c')}).join('')+'<span></span></div>'+strow(9)+'</div>'},
@@ -239,8 +241,9 @@ function go(i){
   
 }
 var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var PS='<svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>',PL='<svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>';
 var pz=document.createElement('button');pz.type='button';pz.className='mhv-pause';
-function setPause(v){root.classList.toggle('is-paused',v);pz.textContent=v?'\u25B6':'II';pz.setAttribute('aria-label',v?'Play previews':'Pause previews');pz.setAttribute('aria-pressed',v)}
+function setPause(v){root.classList.toggle('is-paused',v);pz.innerHTML=v?PL:PS;pz.setAttribute('aria-label',v?'Play previews':'Pause previews');pz.setAttribute('aria-pressed',v)}
 pz.onclick=function(){setPause(!root.classList.contains('is-paused'))};
 tabs.insertBefore(pz,tabs.firstChild);setPause(RM);
 tabs.addEventListener('animationend',function(e){if(e.animationName==='mhv-p'&&!RM)go(cur+1)});
