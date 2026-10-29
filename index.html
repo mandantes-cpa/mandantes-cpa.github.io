@@ -113,11 +113,12 @@
 .mhv-pause svg{width:11px;height:11px}
 .mhv-win{position:relative;flex:1;min-height:0;margin:0 9px 9px 0}
 .mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--white);border:var(--line);
-  transform:translate(9px,9px);opacity:0;z-index:1;pointer-events:none;transition:opacity .3s var(--ease-out)}
-.mhv-pane::after{content:"";position:absolute;inset:0;z-index:5;background:var(--ink);opacity:1;pointer-events:none;transition:opacity .45s var(--ease-out) .12s}
-.mhv-pane.p1{opacity:1;z-index:2}
-.mhv-pane.on{opacity:1;z-index:4;transform:none;pointer-events:auto;animation:mhv-top .75s var(--ease-out)}
-.mhv-pane.on::after{opacity:0}
+  transform:translate(9px,9px);z-index:1;pointer-events:none}
+.mhv-pane::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:linear-gradient(180deg,transparent 0,transparent 34%,var(--ink) 66%,var(--ink) 100%);background-size:100% 300%;background-position:0 100%}
+.mhv-pane.p1{z-index:2}
+.mhv-pane.on{z-index:4;transform:none;pointer-events:auto;animation:mhv-top .8s var(--ease-out)}
+.mhv-pane.on::after{background-position:0 0;transition:background-position .9s cubic-bezier(.45,0,.2,1) .05s}
 .mhv-hd{display:flex;align-items:center;gap:10px;padding:0 12px;height:2.7rem;border-bottom:1px solid var(--mhv-line);flex:none}
 .mhv-sp{flex:1}
 .mhv-bd{display:flex;flex:1;min-height:0}
@@ -154,7 +155,7 @@
 
 .mhv:hover *:not(.mhv-pane),.mhv:hover *::after,.mhv.is-paused *:not(.mhv-pane),.mhv.is-paused *::after,.mhv.is-off *:not(.mhv-pane),.mhv.is-off *::after{animation-play-state:paused!important}
 @keyframes mhv-p{to{width:100%}}
-@keyframes mhv-top{0%{transform:translate(9px,9px)}50%{transform:translate(-9px,-9px) rotate(-.7deg)}100%{transform:none}}
+@keyframes mhv-top{0%{transform:translate(9px,9px)}50%{transform:translate(-6px,-6px) rotate(-.4deg)}100%{transform:none}}
 @keyframes mhv-s{to{transform:translateY(calc(var(--d,0)*-1px))}}
 @keyframes mhv-sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.sk,.mhv-pane.on .mhv-sc{animation:none!important}.mhv-pane.on .mhv-sc{transform:none}}
