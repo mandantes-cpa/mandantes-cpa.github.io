@@ -88,19 +88,15 @@
           <p class="microcopy">Start with the form or schedule a conversation.</p>
         </div>
         <div class="hero-visual reveal">
-  <div class="paper-chip paper-chip--yellow" aria-hidden="true">CLEAN<br />RECORDS</div>
-  <div class="paper-chip paper-chip--aqua" aria-hidden="true">ON<br />TRACK</div>
   <!-- Software previews (replaces hero-art image + balance sign). Self-contained: CSS + JS below, scoped to .mhv -->
   <div class="mhv" role="group" aria-label="Previews of QuickBooks Online, Xero, Wave, Zoho Books and Excel">
 <style>
 .hero-visual{border:0;background:transparent;box-shadow:none;overflow:visible}
 .hero-visual.reveal:hover{box-shadow:none;transform:none}
-.hero-visual .paper-chip--aqua{top:.2rem;right:1rem}
-.hero-visual .paper-chip--yellow{bottom:.2rem;left:1rem}
-.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:3.2rem 0;z-index:2;display:flex;flex-direction:column;container-type:inline-size;
-  border:var(--line);background:var(--white);box-shadow:4px 4px 0 var(--ink);font-family:var(--mono);color:var(--ink)}
+.mhv{--c:#000;--mhv-line:rgba(34,33,31,.14);--dur:8s;position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;container-type:inline-size;
+  font-family:var(--mono);color:var(--ink)}
 .mhv *{box-sizing:border-box}
-.mhv-tabs{display:flex;flex:none;border-bottom:var(--line);background:var(--paper)}
+.mhv-tabs{display:flex;flex:none;border:var(--line);background:var(--paper);box-shadow:3px 3px 0 var(--ink);margin:0 9px 1.3rem 0}
 .mhv-tab{flex:1 1 0;min-width:0;height:2.9rem;display:grid;place-items:center;padding:0 .4rem;border:0;border-right:2px solid var(--ink);background:transparent;cursor:pointer;position:relative;
   font:700 .6rem var(--mono);text-transform:uppercase;color:var(--ink);transition:background 150ms var(--ease-out)}
 .mhv-tab img{height:1.4rem;width:auto;max-width:100%;object-fit:contain;display:block;opacity:.5;transition:opacity 150ms var(--ease-out)}
@@ -111,9 +107,13 @@
 .mhv-tab.on::after{animation:mhv-p var(--dur) linear forwards}
 .mhv-pause{flex:none;width:2.9rem;display:grid;place-items:center;padding:0;border:0;border-right:2px solid var(--ink);background:var(--ink);color:var(--white);font:700 .68rem var(--mono);cursor:pointer;transition:background 150ms var(--ease-out)}
 .mhv-pause:hover{background:var(--coral)}
-.mhv-win{position:relative;flex:1;min-height:0;background:var(--white)}
-.mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;background:var(--white)}
-.mhv-pane.on{opacity:1;visibility:visible}
+.mhv-win{position:relative;flex:1;min-height:0;margin:0 9px 9px 0}
+.mhv-pane{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--white);border:var(--line);
+  transform:translate(9px,9px);opacity:0;z-index:1;pointer-events:none;transition:opacity .3s var(--ease-out)}
+.mhv-pane::after{content:"";position:absolute;inset:0;z-index:5;background:var(--ink);opacity:1;pointer-events:none;transition:opacity .45s var(--ease-out) .12s}
+.mhv-pane.p1{opacity:1;z-index:2}
+.mhv-pane.on{opacity:1;z-index:4;transform:none;pointer-events:auto;animation:mhv-top .75s var(--ease-out)}
+.mhv-pane.on::after{opacity:0}
 .mhv-hd{display:flex;align-items:center;gap:10px;padding:0 12px;height:2.7rem;border-bottom:1px solid var(--mhv-line);flex:none}
 .mhv-sp{flex:1}
 .mhv-bd{display:flex;flex:1;min-height:0}
@@ -148,14 +148,15 @@
 .xl span{height:26px;padding:8px 6px;border-right:1px solid #e4e0d0;border-bottom:1px solid #e4e0d0;background:#fff}
 .xl span.f{background:#f6fbf7}
 
-.mhv:hover *,.mhv:hover *::after,.mhv.is-paused *,.mhv.is-paused *::after,.mhv.is-off *,.mhv.is-off *::after{animation-play-state:paused!important}
+.mhv:hover *:not(.mhv-pane),.mhv:hover *::after,.mhv.is-paused *:not(.mhv-pane),.mhv.is-paused *::after,.mhv.is-off *:not(.mhv-pane),.mhv.is-off *::after{animation-play-state:paused!important}
 @keyframes mhv-p{to{width:100%}}
+@keyframes mhv-top{0%{transform:translate(9px,9px)}50%{transform:translate(-9px,-9px) rotate(-.7deg)}100%{transform:none}}
 @keyframes mhv-s{to{transform:translateY(calc(var(--d,0)*-1px))}}
 @keyframes mhv-sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.sk,.mhv-pane.on .mhv-sc{animation:none!important}.mhv-pane.on .mhv-sc{transform:none}}
 @container (max-width:430px){.mhv-side.x{display:none}.g4{grid-template-columns:1fr 1fr}}
 @container (max-width:340px){.mhv-side{display:none}.g3{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.hero-visual{min-height:30rem}.mhv{inset:3rem 0}}
+@media (max-width:640px){.hero-visual{min-height:30rem}.mhv{inset:0}}
 </style>
 <div class="mhv-tabs"></div>
 <div class="mhv-win" aria-hidden="true"></div>
@@ -234,9 +235,10 @@ function measure(){var p=P[cur],sc=p.querySelector('.mhv-sc'),vp=p.querySelector
 function go(i){
   cur=(i+APPS.length)%APPS.length;
   T.forEach(function(t,k){t.classList.remove('on');t.setAttribute('aria-selected',k===cur)});
-  P.forEach(function(p){p.classList.remove('on');p.querySelector('.mhv-sc').style.animation='none'});
+  var n=APPS.length;
+  P.forEach(function(p,k){var d=(k-cur+n)%n;p.classList.remove('on','p1');p.querySelector('.mhv-sc').style.animation='none';if(!d)p.classList.add('on');else if(d===1)p.classList.add('p1')});
   void root.offsetHeight;
-  P[cur].classList.add('on');P[cur].querySelector('.mhv-sc').style.animation='';
+  P[cur].querySelector('.mhv-sc').style.animation='';
   T[cur].classList.add('on');measure();
   
 }
